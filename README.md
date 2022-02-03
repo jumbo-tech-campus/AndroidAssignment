@@ -34,5 +34,5 @@ Create an Android application for browsing the Jumbo list of available products.
 ## Deliverables
 - Github link with the code for the Android application.
 
-![Screen Shot](https://user-images.githubusercontent.com/55485534/135105894-52b5d465-eec1-4a40-80ee-8f63eed45915.png)
+![Screen Shot](https://user-images.githubusercontent.com/77965057/152323265-1b60c61a-3610-4853-8e52-5ee07e0eeec9.png)
 
