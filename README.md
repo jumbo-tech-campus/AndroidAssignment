@@ -29,6 +29,7 @@ Create an Android application for browsing the Jumbo list of available products.
 
 - Attached designs could be a style guide, feel free to innovate. 
 - Write your code in production quality, in a reusable way.
+- You can use third party libraries.
 
 ## Deliverables
 - Github link with the code for the Android application.
