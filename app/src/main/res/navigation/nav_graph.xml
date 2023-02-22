@@ -9,6 +9,16 @@
         android:id="@+id/fragment_home"
         android:name="com.abhinash.jumboandroidassignment.ui.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_fragment_to_fragment_product_list"
+            app:destination="@id/fragment_product_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_product_list"
+        android:name="com.abhinash.jumboandroidassignment.ui.ProductListFragment"
+        android:label="ProductListFragment"
+        tools:layout="@layout/fragment_product_list" />
 
 </navigation>
