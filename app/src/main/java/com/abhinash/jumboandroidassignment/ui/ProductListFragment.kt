@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.abhinash.jumboandroidassignment.R
 import com.abhinash.jumboandroidassignment.item.PlaceholderContent
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A fragment representing a list of Items.
  */
+@AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
     private var columnCount = 1
-
+    private val viewModel: ProductListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,7 +34,7 @@ class ProductListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_product_list, container, false)
-
+        viewModel.initialize()
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -39,7 +42,7 @@ class ProductListFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = ProductListRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                adapter = ProductListRecyclerViewAdapter()
             }
         }
         return view

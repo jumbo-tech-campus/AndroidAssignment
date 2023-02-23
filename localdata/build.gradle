@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -15,7 +16,10 @@ android {
         consumerProguardFiles "consumer-rules.pro"
         buildConfigField "String", "dataSource", project.DATA_SOURCE
     }
-
+    sourceSets {
+        // Adds exported schema location as test app assets.
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -32,10 +36,24 @@ android {
 }
 
 dependencies {
+    // Projects
+    implementation project(':domain')
+    implementation project(':data')
 
     implementation 'androidx.core:core-ktx:1.9.0'
 
     implementation 'com.google.code.gson:gson:2.9.1'
+
+    // Room components
+    var roomVersion = "2.5.0"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-compiler:2.42"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
