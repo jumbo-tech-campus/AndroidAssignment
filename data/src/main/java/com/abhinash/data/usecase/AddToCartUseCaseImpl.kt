@@ -15,7 +15,7 @@ class AddToCartUseCaseImpl @Inject constructor(private val productRepository: Pr
             val cartProduct = cartProducts.firstOrNull { it.id == params.id }
             val quantity = cartProduct?.quantity ?: 0
 
-            productRepository.saveProductToCart(params, quantity + 1)
+            productRepository.saveProductToCart(params, quantity = quantity + 1)
 
             Either.Right(Unit)
         } catch (t: Throwable) {

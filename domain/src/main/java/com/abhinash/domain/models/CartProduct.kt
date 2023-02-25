@@ -5,11 +5,14 @@ class CartProduct private constructor(
     val id: String,
     val title: String,
     val unitPriceInEur: Double,
-    val quantity: Int,
+    var quantity: Int,
     val image: String,
     val size: Int
 ) {
 
+    fun reduceQuantity(){
+        quantity -= 1
+    }
     companion object {
         fun load(
             id: String,
@@ -32,7 +35,7 @@ class CartProduct private constructor(
             CartProduct(
                 id = product.id,
                 title = product.title,
-                unitPriceInEur = product.productPrices.price.amount,
+                unitPriceInEur = product.productPrices.price.amount * quantity,
                 quantity = quantity,
                 image = product.productImage.url,
                 size = product.productImage.size

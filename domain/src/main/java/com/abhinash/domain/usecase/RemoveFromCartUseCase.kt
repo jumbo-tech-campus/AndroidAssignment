@@ -1,5 +1,5 @@
 package com.abhinash.domain.usecase
 
-import com.abhinash.domain.models.Product
+import com.abhinash.domain.models.CartProduct
 
-interface RemoveFromCartUseCase: BaseUseCase<Unit, Product>
+interface RemoveFromCartUseCase : BaseUseCase<Unit, CartProduct>

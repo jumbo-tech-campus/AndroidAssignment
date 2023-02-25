@@ -5,12 +5,10 @@ import androidx.room.Room
 import com.abhinash.data.local.DatabaseService
 import com.abhinash.data.repository.ProductRepositoryImpl
 import com.abhinash.data.usecase.AddToCartUseCaseImpl
-import com.abhinash.data.usecase.GetCartProductsImpl
 import com.abhinash.data.usecase.GetProductsUseCaseImpl
 import com.abhinash.data.usecase.RemoveFromCartUseCaseImpl
 import com.abhinash.domain.repository.ProductRepository
 import com.abhinash.domain.usecase.AddToCartUseCase
-import com.abhinash.domain.usecase.GetCartProducts
 import com.abhinash.domain.usecase.GetProductsUseCase
 import com.abhinash.domain.usecase.RemoveFromCartUseCase
 import dagger.Binds
@@ -29,12 +27,6 @@ abstract class DataModule {
     abstract fun bindGetProductsUseCase(
         getProductsUseCaseImpl: GetProductsUseCaseImpl
     ): GetProductsUseCase
-
-    @Binds
-    @Singleton
-    abstract fun bindGetCartProductsUseCase(
-        getCartProductsImpl: GetCartProductsImpl
-    ): GetCartProducts
 
     @Binds
     @Singleton

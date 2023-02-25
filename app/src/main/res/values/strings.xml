@@ -3,4 +3,11 @@
     <string name="product_list_button">Go to Next Page</string>
     <string name="error_loading_product_list">Error Loading Product List</string>
     <string name="no_result_found">No Result found</string>
+    <string name="unit_price">%.0f Euro/kilo</string>
+    <string name="total_price">%.0f Euro</string>
+    <string name="added_to_cart">Added to Cart :)</string>
+    <string name="failed_to_add_to_cart">Failed to add to cart :(</string>
+    <string name="cart_quantity">Total Quantity: %d</string>
+    <string name="removed_from_cart">Reduced quantity</string>
+    <string name="failed_to_remove_from_cart">Failed to remove from cart</string>
 </resources>

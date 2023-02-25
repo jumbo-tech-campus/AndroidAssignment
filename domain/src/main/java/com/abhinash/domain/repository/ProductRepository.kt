@@ -9,7 +9,9 @@ interface ProductRepository {
 
     suspend fun saveProductToCart(product: Product, quantity: Int)
 
-    fun getProductsForCart(): StateFlow<List<CartProduct>>
+    suspend fun removeProductFromCart(cartProduct: CartProduct)
+
+    suspend fun getProductsForCart(): StateFlow<List<CartProduct>>
 
     suspend fun getCartProductsCount(): Int
 }

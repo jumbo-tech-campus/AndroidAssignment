@@ -31,10 +31,33 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveProductToCart(product: Product, quantity: Int) {
+    override suspend fun saveProductToCart(
+        product: Product,
+        quantity: Int
+    ) {
         withContext(Dispatchers.IO) {
-            val cartProduct = CartProduct.fromProduct(product, quantity)
-            databaseService.productsDao().insert(CartProductStorageModel.fromDomain(cartProduct))
+            val productToSave = CartProduct.fromProduct(product, quantity)
+            insertCartProduct(productToSave)
+        }
+    }
+
+    private suspend fun insertCartProduct(productToSave: CartProduct) {
+        databaseService.productsDao().insert(CartProductStorageModel.fromDomain(productToSave))
+
+        val cartProducts = databaseService.productsDao().getCartProducts()
+        cartProducts?.let {
+            productListState.emit(it.map { cartProduct -> cartProduct.toDomain() })
+        }
+    }
+
+    override suspend fun removeProductFromCart(cartProduct: CartProduct) {
+        withContext(Dispatchers.IO) {
+            if (cartProduct.quantity <= 0) {
+                databaseService.productsDao().deleteCartProduct(cartProduct.id)
+            } else {
+                databaseService.productsDao()
+                    .insert(CartProductStorageModel.fromDomain(cartProduct))
+            }
 
             val cartProducts = databaseService.productsDao().getCartProducts()
             cartProducts?.let {
@@ -43,10 +66,16 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getProductsForCart(): StateFlow<List<CartProduct>> =
-        productListState.asStateFlow()
+    override suspend fun getProductsForCart(): StateFlow<List<CartProduct>> {
+        return withContext(Dispatchers.IO) {
+            productListState.value =
+                databaseService.productsDao().getCartProducts()?.map { it.toDomain() }
+                    ?: emptyList()
+            return@withContext productListState.asStateFlow()
+        }
+    }
 
     override suspend fun getCartProductsCount() =
-        withContext(Dispatchers.IO) {return@withContext databaseService.productsDao().countCartProducts() }
+        withContext(Dispatchers.IO) { return@withContext getProductsForCart().value.size }
 
 }
