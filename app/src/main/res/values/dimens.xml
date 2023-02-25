@@ -3,4 +3,9 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="gap_10">10dp</dimen>
     <dimen name="gap_20">20dp</dimen>
+    <dimen name="gap_5">5dp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="product_list_image_view_width">80dp</dimen>
+    <dimen name="product_list_image_view_height">80dp</dimen>
 </resources>

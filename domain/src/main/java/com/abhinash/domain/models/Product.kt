@@ -4,7 +4,7 @@ data class Product(
     val id: String,
     val title: String,
     val productPrices: ProductPrices,
-    val productImages: List<ProductImage>,
+    val productImage: ProductImage,
     val quantity: String
 )
 

@@ -17,8 +17,17 @@
 
     <fragment
         android:id="@+id/fragment_product_list"
-        android:name="com.abhinash.jumboandroidassignment.ui.ProductListFragment"
+        android:name="com.abhinash.jumboandroidassignment.ui.products.ProductListFragment"
         android:label="ProductListFragment"
-        tools:layout="@layout/fragment_product_list" />
+        tools:layout="@layout/fragment_product_list">
+        <action
+            android:id="@+id/action_fragment_product_list_to_fragment_cart"
+            app:destination="@id/fragment_cart" />
+    </fragment>
+
+    <fragment android:id="@+id/fragment_cart"
+        android:name="com.abhinash.jumboandroidassignment.ui.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart" />
 
 </navigation>

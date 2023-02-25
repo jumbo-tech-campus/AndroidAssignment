@@ -1,6 +1,6 @@
 package com.abhinash.domain.models
 
 data class ProductImage(
-    val size: String,
+    val size: Int,
     val url: String
 )

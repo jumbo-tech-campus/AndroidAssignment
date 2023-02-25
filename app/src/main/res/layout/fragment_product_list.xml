@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,21 +10,25 @@
         android:id="@+id/cart_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/gap_10"
+        android:layout_marginHorizontal="@dimen/gap_20"
+        android:layout_marginTop="@dimen/gap_10"
+        android:layout_marginBottom="@dimen/gap_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_product_list"
-        tools:context=".ui.ProductListFragment"
-        tools:listitem="@layout/fragment_product_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:layout_marginHorizontal="@dimen/gap_20"
         android:layout_marginVertical="@dimen/gap_10"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/cart_view" />
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/gap_10"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cart_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_view"
+        tools:context=".ui.products.ProductListFragment" />
 
     <ProgressBar
         android:id="@+id/progress_bar_list"

@@ -1,14 +1,15 @@
 package com.abhinash.domain.repository
 
+import com.abhinash.domain.models.CartProduct
 import com.abhinash.domain.models.Product
 import kotlinx.coroutines.flow.StateFlow
 
 interface ProductRepository {
-    suspend fun loadProducts()
+    suspend fun loadProducts(): List<Product>
 
-    fun saveProductToCart(productId: String, quantity: Int)
+    suspend fun saveProductToCart(product: Product, quantity: Int)
 
-    fun getProductsForCart(): StateFlow<List<Product>>
+    fun getProductsForCart(): StateFlow<List<CartProduct>>
 
-    fun removeProductFromCart(productId: String)
+    suspend fun getCartProductsCount(): Int
 }

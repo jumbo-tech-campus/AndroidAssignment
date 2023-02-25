@@ -2,4 +2,5 @@
     <string name="app_name">JumboAndroidAssignment</string>
     <string name="product_list_button">Go to Next Page</string>
     <string name="error_loading_product_list">Error Loading Product List</string>
+    <string name="no_result_found">No Result found</string>
 </resources>

@@ -10,10 +10,10 @@ import javax.inject.Inject
 class GetProductsUseCaseImpl @Inject constructor(private val productRepository: ProductRepository): GetProductsUseCase {
     override suspend fun execute(params: Unit): Either<Failure, List<Product>> {
         return try{
-            productRepository.loadProducts()
-            val products = productRepository.getProductsForCart().value
+            val products = productRepository.loadProducts()
 
             // log success
+
             Either.Right(products)
         }catch (t: Throwable){
             // log failure

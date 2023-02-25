@@ -2,5 +2,5 @@ package com.abhinash.domain.models
 
 data class Price(
     val currency: String,
-    val amount: Int
+    val amount: Double
 )
