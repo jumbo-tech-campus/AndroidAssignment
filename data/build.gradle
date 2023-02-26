@@ -38,6 +38,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    packagingOptions {
+        exclude("lib/**")
+    }
 }
 
 dependencies {
@@ -67,6 +70,7 @@ dependencies {
 
     // Unit tests
     testImplementation project(':testshared')
+    androidTestImplementation project(':testshared')
 }
 
 // Allow references to generated code
