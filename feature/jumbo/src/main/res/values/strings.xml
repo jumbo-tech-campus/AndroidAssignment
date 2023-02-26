@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Products App</string>
+    <string name="main_screen_products_tab_title">Products</string>
+    <string name="main_screen_cart_tab_title">Cart</string>
+    <string name="start_screen_button_start_buying_title">Please, click me!</string>
+    <string name="start_screen_proceed_to_list_message">By clicking this button you will start buying our products</string>
+    <string name="cart_screen_empty_message">Your cart is empty</string>
+    <string name="add_to_cart_button_text">Add to cart</string>
+
+</resources>

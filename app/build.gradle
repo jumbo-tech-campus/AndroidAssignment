@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    namespace globalConfiguration["namespace"]
+    compileSdk globalConfiguration["targetSdk"]
+
+    defaultConfig {
+        applicationId globalConfiguration["namespace"]
+        minSdk globalConfiguration["minSdk"]
+        targetSdk globalConfiguration["compileSdk"]
+        versionCode globalConfiguration["versionCode"]
+        versionName globalConfiguration["versionName"]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.3.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation project(":feature:jumbo")
+    def generalDependencies = rootProject.ext.generalDependencies
+    def generalTestDependencies = rootProject.ext.generalTestDependencies
+
+    implementation generalDependencies.kotlinCore,
+            generalDependencies.hiltCore,
+            generalDependencies.lifeCycle,
+            generalDependencies.composeUI,
+            generalDependencies.compose,
+            generalDependencies.composeTooling,
+            generalDependencies.composeMaterial,
+            generalDependencies.navigationCompose,
+            generalDependencies.hiltNavigationCompose,
+            generalDependencies.uiController
+
+    kapt generalDependencies.hiltCompiler,
+            generalDependencies.hiltAndroidCompiler
+
+    testImplementation generalTestDependencies.jUniTest
+    androidTestImplementation generalTestDependencies.jUniteExtension,
+            generalTestDependencies.espressoCore,
+            generalTestDependencies.composeJUnitTest
+
+    debugImplementation generalTestDependencies.debugImplemenatation,
+            generalTestDependencies.composeUiTest
+}

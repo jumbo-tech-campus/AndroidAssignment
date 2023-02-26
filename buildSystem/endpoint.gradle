@@ -1,0 +1,5 @@
+ext {
+    endpoints = [
+            endpoint_url = "\"https://raw.githubusercontent.com/jumbo-tech-campus/AndroidAssignment/main/\"",
+    ]
+}
