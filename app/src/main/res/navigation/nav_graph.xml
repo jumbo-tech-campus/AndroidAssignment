@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.abhinash.jumboandroidassignment.ui.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_fragment_to_fragment_product_list"
+            app:destination="@id/fragment_product_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_product_list"
+        android:name="com.abhinash.jumboandroidassignment.ui.products.ProductListFragment"
+        android:label="ProductListFragment"
+        tools:layout="@layout/fragment_product_list">
+        <action
+            android:id="@+id/action_fragment_product_list_to_fragment_cart"
+            app:destination="@id/fragment_cart" />
+    </fragment>
+
+    <fragment android:id="@+id/fragment_cart"
+        android:name="com.abhinash.jumboandroidassignment.ui.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart" />
+
+</navigation>
