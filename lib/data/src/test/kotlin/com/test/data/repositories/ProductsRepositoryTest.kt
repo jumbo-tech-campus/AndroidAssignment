@@ -1,7 +1,7 @@
 package com.test.data.repositories
 
-import com.test.data.*
 import com.test.data.repository.ProductsRepository
+import com.test.data.returnMockedProductsResponse
 import com.test.data.source.ProductsRemoteDataSource
 import com.test.network.backend.model.NetworkResponse
 import com.test.network.backend.model.mapper.NetworkResult

@@ -1,10 +1,11 @@
 package com.test.network.local.mapper
 
-import com.test.model.Cart
+import com.test.model.CartItem
 import com.test.model.Product
-import com.test.network.local.entities.CartEntity
+import com.test.network.local.entities.CartItemEntity
 
-fun Product.toCartEntity(quantity: Int) = CartEntity(
+fun Product.toCartItemEntity(quantity: Int) = CartItemEntity(
+    uid = this.id,
     name = this.title,
     image = this.imageInfo.primaryView.first().url,
     price = this.prices.price.amount,
@@ -12,7 +13,8 @@ fun Product.toCartEntity(quantity: Int) = CartEntity(
     quantity = quantity
 )
 
-fun CartEntity.toCartModel() = Cart(
+fun CartItemEntity.toCartItemModel() = CartItem(
+    id = this.uid,
     name = this.name,
     image = this.image,
     price = this.price,
@@ -20,7 +22,8 @@ fun CartEntity.toCartModel() = Cart(
     quantity = this.quantity
 )
 
-fun Cart.toCartEntity() = CartEntity(
+fun CartItem.toCartItemEntity() = CartItemEntity(
+    uid = this.id,
     name = this.name,
     image = this.image,
     price = this.price,
@@ -28,11 +31,11 @@ fun Cart.toCartEntity() = CartEntity(
     quantity = this.quantity
 )
 
-fun List<CartEntity>.toCartListModel(): List<Cart> {
-    val listResult = mutableListOf<Cart>()
+fun List<CartItemEntity>.toCartItemListModel(): List<CartItem> {
+    val listResult = mutableListOf<CartItem>()
     this.forEach {
         listResult.add(
-            it.toCartModel()
+            it.toCartItemModel()
         )
     }
     return listResult.toList()

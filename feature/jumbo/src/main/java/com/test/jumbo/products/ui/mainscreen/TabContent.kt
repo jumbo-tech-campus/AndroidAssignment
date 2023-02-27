@@ -7,6 +7,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.Text
 import androidx.compose.material.LeadingIconTab
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -20,6 +21,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 import com.jumbo.products.R
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun TopBar() {
@@ -44,8 +46,9 @@ fun TopBar() {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
+fun Tabs(tabs: List<TabItem>, pagerState: PagerState, showCart: Boolean) {
     val scope = rememberCoroutineScope()
+    NavigateToCartScreen(showCart, scope, pagerState)
     TabRow(
         selectedTabIndex = pagerState.currentPage,
         backgroundColor = colorResource(id = R.color.product_screen_main_color),
@@ -66,6 +69,22 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                     }
                 },
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+private fun NavigateToCartScreen(
+    showCart: Boolean,
+    scope: CoroutineScope,
+    pagerState: PagerState
+) {
+    if (showCart) {
+        LaunchedEffect(Unit) {
+            scope.launch {
+                pagerState.animateScrollToPage(1)
+            }
         }
     }
 }

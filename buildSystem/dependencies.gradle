@@ -21,6 +21,7 @@ ext {
     controllerVersion = '0.27.0'
     accompanistVersion = '0.25.1'
     roomVersion = '2.5.0'
+    roomTestVersion = '1.5.0'
 
     hiltVersion = '2.44'
     hiltCompilerVersion = '1.0.0'
@@ -76,6 +77,7 @@ ext {
             mockServer          : "com.squareup.okhttp3:mockwebserver:${mockWebServerVersion}",
             rules               : "androidx.test:runner:${testVersion}",
             runner              : "androidx.test:rules:${testVersion}",
-            coroutineTest       : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutinesTestVersion}"
+            coroutineTest       : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutinesTestVersion}",
+            roomTest            : "androidx.test:core-ktx:${roomTestVersion}"
     ]
 }

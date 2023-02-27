@@ -46,6 +46,9 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -69,7 +72,9 @@ dependencies {
             generalDependencies.coilLib,
             generalDependencies.uiController,
             generalDependencies.tabPagerLibrary,
-            generalDependencies.tabIndicatorLibrary
+            generalDependencies.tabIndicatorLibrary,
+            generalDependencies.roomKtx,
+            generalTestDependencies.roomTest
 
     kapt generalDependencies.hiltCompiler,
             generalDependencies.hiltAndroidCompiler

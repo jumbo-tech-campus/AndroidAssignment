@@ -1,23 +1,26 @@
 package com.test.data.repository
 
 import com.test.data.source.ProductsLocalDataSource
-import com.test.model.Cart
+import com.test.model.CartItem
 import com.test.model.Product
-import com.test.network.local.mapper.toCartEntity
-import com.test.network.local.mapper.toCartListModel
+import com.test.network.local.mapper.toCartItemEntity
+import com.test.network.local.mapper.toCartItemListModel
 import javax.inject.Inject
 
 class ProductsLocalRepository @Inject constructor(
     private val productsLocalDataSource: ProductsLocalDataSource
 ) {
 
+    suspend fun saveCartItem(cartItem: CartItem) =
+        productsLocalDataSource.saveCartItem(cartItem.toCartItemEntity())
+
     suspend fun saveProduct(product: Product, quantity: Int) =
-        productsLocalDataSource.saveProduct(product.toCartEntity(quantity))
+        productsLocalDataSource.saveCartItem(product.toCartItemEntity(quantity))
 
-    suspend fun getCart(): List<Cart> =
-        productsLocalDataSource.getCart().toCartListModel()
+    suspend fun updateCart(cartItem: CartItem) =
+        productsLocalDataSource.updateProduct(cartItem.toCartItemEntity())
 
-    suspend fun deleteItemOnCart(cart: Cart) =
-        productsLocalDataSource.deleteItem(cart.toCartEntity())
+    suspend fun getCart(): List<CartItem> =
+        productsLocalDataSource.getCart().toCartItemListModel()
 
 }

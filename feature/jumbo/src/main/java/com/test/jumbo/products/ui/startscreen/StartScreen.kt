@@ -30,12 +30,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.jumbo.products.R
 import com.test.jumbo.products.states.CartInfoState
 import com.test.jumbo.products.ScreenRoute
-import com.test.jumbo.products.viewmodel.CartViewModel
+import com.test.jumbo.products.viewmodel.StartViewModel
 
 @Composable
 fun StartScreen(
     navController: NavController,
-    viewModel: CartViewModel = hiltViewModel()
+    viewModel: StartViewModel = hiltViewModel()
 ) {
     val state = viewModel.viewStateFlow.collectAsState(initial = CartInfoState())
     if (state.value.showCart) {

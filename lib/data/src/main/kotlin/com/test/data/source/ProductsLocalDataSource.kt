@@ -1,18 +1,18 @@
 package com.test.data.source
 
 import com.test.network.local.ProductsDb
-import com.test.network.local.entities.CartEntity
+import com.test.network.local.entities.CartItemEntity
 import javax.inject.Inject
 
 class ProductsLocalDataSource @Inject constructor(
     private val database: ProductsDb
 ) {
-    suspend fun saveProduct(cartEntity: CartEntity) =
-        database.productDao().insertProduct(cartEntity)
+    suspend fun saveCartItem(cartItemEntity: CartItemEntity) =
+        database.productDao().insertOrUpdate(cartItemEntity)
 
-    suspend fun getCart(): List<CartEntity> =
+    suspend fun updateProduct(cartItemEntity: CartItemEntity) =
+        database.productDao().deleteOrUpdate(cartItemEntity)
+
+    suspend fun getCart(): List<CartItemEntity> =
         database.productDao().getCart()
-
-    suspend fun deleteItem(cart: CartEntity) =
-        database.productDao().delete(cart)
 }

@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         { StartScreen(navController) }
 
                         composable(route = ScreenRoute.MainProductsScreenRoute.route)
-                        { ProductsMainScreen(navController) }
+                        { ProductsMainScreen() }
                     }
                 }
             }

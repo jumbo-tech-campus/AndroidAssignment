@@ -1,6 +1,7 @@
 package com.test.model
 
-data class Cart(
+data class CartItem(
+    val id: String,
     val name: String,
     val image: String,
     val price: Int,
