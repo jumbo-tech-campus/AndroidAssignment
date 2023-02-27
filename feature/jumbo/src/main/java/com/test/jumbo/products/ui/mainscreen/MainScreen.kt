@@ -43,7 +43,7 @@ fun ProductsMainScreen(
         topBar = { TopBar() },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            Tabs(tabs = tabs, pagerState = pagerState, state.value.showCart)
+            Tabs(tabs = tabs, pagerState = pagerState, state.value)
             TabsContent(tabs = tabs, pagerState = pagerState)
         }
     }
