@@ -2,6 +2,8 @@ package com.test.jumbo.products
 
 import com.test.data.repository.ProductsLocalRepository
 import com.test.data.repository.ProductsRepository
+import com.test.data.source.ProductsLocalDataSource
+import com.test.data.source.ProductsRemoteDataSource
 import com.test.data.usecase.UpdateCartUseCase
 import com.test.data.usecase.DeleteCartItemUseCase
 import com.test.data.usecase.GetCartUseCase
@@ -11,10 +13,14 @@ import com.test.jumbo.products.states.UIState
 import com.test.jumbo.products.viewmodel.ProductsViewModel
 import com.test.model.CartItem
 import com.test.model.Products
+import com.test.network.backend.model.NetworkResponse
 import com.test.network.backend.model.mapper.NetworkResult
 import com.test.network.backend.model.mapper.toProductModel
-import io.mockk.MockKAnnotations
-import io.mockk.mockk
+import com.test.network.backend.model.reponse.ProductsResponse
+import com.test.network.backend.service.ProductsApi
+import com.test.network.local.ProductsDb
+import com.test.network.local.dao.ProductsDao
+import com.test.network.local.entities.CartItemEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -26,34 +32,40 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProductsViewModelTest {
 
-    private val productsLocalRepository: ProductsLocalRepository = mockk()
-    private val productsRepository: ProductsRepository = mockk()
+    private val productsDB: ProductsDb = mock()
+    private val productsDao: ProductsDao = mock()
+    private val productsApi: ProductsApi = mock()
+
+    private val productsLocalDataSource = ProductsLocalDataSource(productsDB)
+    private val productsLocalRepository = ProductsLocalRepository(productsLocalDataSource)
+    private val productsRemoteDataSource = ProductsRemoteDataSource(productsApi)
+    private val productsRepository = ProductsRepository(productsRemoteDataSource)
     private val getProductListUseCase = GetProductListUseCase(productsRepository)
     private val getCartUseCase = GetCartUseCase(productsLocalRepository)
     private val saveProductUseCase = SaveProductUseCase(productsLocalRepository)
     private val deleteCartItemUseCase = DeleteCartItemUseCase(productsLocalRepository)
     private val updateCartUseCase = UpdateCartUseCase(productsLocalRepository)
-    private val productsViewModel = ProductsViewModel(
-        getProductListUseCase,
-        saveProductUseCase,
-        getCartUseCase,
-        deleteCartItemUseCase,
-        updateCartUseCase
-    )
+
+    private lateinit var productsViewModel: ProductsViewModel
     private val mockedCartItem = CartItem(
         id = "1", "Bread",
+        "image/test.url",
+        230, "EUR", 5
+    )
+    private val mockedCartItemEntity = CartItemEntity(
+        uid = "1", "Bread",
         "image/test.url",
         230, "EUR", 5
     )
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
         Dispatchers.setMain(UnconfinedTestDispatcher())
     }
 
@@ -65,13 +77,28 @@ class ProductsViewModelTest {
     @Test
     fun fetchProductListSuccessfully() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf(mockedCartItem))
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(
+                listOf(
+                    mockedCartItemEntity
+                )
+            )
+            whenever(productsRemoteDataSource.fetchProductList()).thenReturn(
+                NetworkResponse.Success(ProductsResponse(listOf(returnMockedProductResponse())))
+            )
+
             whenever(getCartUseCase.getCart()).thenReturn(listOf(mockedCartItem))
             whenever(getProductListUseCase.fetchProductListInfo())
                 .thenReturn(
                     NetworkResult
                         .Success(Products(listOf(returnMockedProductResponse().toProductModel())))
                 )
+            initializeViewModel()
             productsViewModel.fetchProductList()
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -87,13 +114,24 @@ class ProductsViewModelTest {
     @Test
     fun fetchProductListWithApiError() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf())
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf())
+            whenever(productsRemoteDataSource.fetchProductList()).thenReturn(
+                NetworkResponse.Success(ProductsResponse(listOf(returnMockedProductResponse())))
+            )
+
             whenever(getCartUseCase.getCart()).thenReturn(listOf())
             whenever(getProductListUseCase.fetchProductListInfo())
                 .thenReturn(
                     NetworkResult
                         .Fail(Products(listOf()))
                 )
+            initializeViewModel()
             productsViewModel.fetchProductList()
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -109,13 +147,24 @@ class ProductsViewModelTest {
     @Test
     fun fetchProductListWithApiFail() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf())
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf())
+            whenever(productsRemoteDataSource.fetchProductList()).thenReturn(
+                NetworkResponse.Success(ProductsResponse(listOf(returnMockedProductResponse())))
+            )
+
             whenever(getCartUseCase.getCart()).thenReturn(listOf())
             whenever(getProductListUseCase.fetchProductListInfo())
                 .thenReturn(
                     NetworkResult
                         .Exception(Exception())
                 )
+            initializeViewModel()
             productsViewModel.fetchProductList()
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -132,10 +181,17 @@ class ProductsViewModelTest {
     @Test
     fun testOnAddItemToCartClicked() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf(mockedCartItem))
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf(mockedCartItemEntity))
             whenever(getCartUseCase.getCart()).thenReturn(listOf(mockedCartItem))
-            whenever(saveProductUseCase.saveCartItem(mockedCartItem)).thenReturn(1)
 
+            whenever(saveProductUseCase.saveCartItem(mockedCartItem)).thenReturn(1)
+            initializeViewModel()
             productsViewModel.onAddItemToCartClicked(
                 3,
                 returnMockedProductResponse().toProductModel()
@@ -153,10 +209,17 @@ class ProductsViewModelTest {
     @Test
     fun testOnIncreaseQuantityClicked() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf(mockedCartItem))
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf(mockedCartItemEntity))
             whenever(getCartUseCase.getCart()).thenReturn(listOf(mockedCartItem))
-            whenever(saveProductUseCase.saveCartItem(mockedCartItem)).thenReturn(1)
 
+            whenever(saveProductUseCase.saveCartItem(mockedCartItem)).thenReturn(1)
+            initializeViewModel()
             productsViewModel.onIncreaseQuantityClicked(mockedCartItem)
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -171,10 +234,17 @@ class ProductsViewModelTest {
     @Test
     fun testOnDecreaseQuantityClicked() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf(mockedCartItem))
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf(mockedCartItemEntity))
             whenever(getCartUseCase.getCart()).thenReturn(listOf(mockedCartItem))
-            whenever(updateCartUseCase.updateCart(mockedCartItem)).thenReturn(1)
 
+            whenever(updateCartUseCase.updateCart(mockedCartItem)).thenReturn(1)
+            initializeViewModel()
             productsViewModel.onDecreaseQuantityClicked(mockedCartItem)
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -189,10 +259,17 @@ class ProductsViewModelTest {
     @Test
     fun testOnDeleteProductClicked() {
         runBlocking {
-            whenever(productsLocalRepository.getCart()).thenReturn(listOf(mockedCartItem))
+            whenever(productsDao.getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsDB.productDao())
+                .thenReturn(productsDao)
+            whenever(productsDB.productDao().getCart())
+                .thenReturn(listOf(mockedCartItemEntity))
+            whenever(productsLocalDataSource.getCart()).thenReturn(listOf(mockedCartItemEntity))
             whenever(getCartUseCase.getCart()).thenReturn(listOf(mockedCartItem))
-            whenever(deleteCartItemUseCase.deleteCartItem(mockedCartItem)).thenReturn(1)
 
+            initializeViewModel()
+            whenever(deleteCartItemUseCase.deleteCartItem(mockedCartItem)).thenReturn(1)
             productsViewModel.onDeleteProductClicked(mockedCartItem)
             val job = launch {
                 productsViewModel.viewStateFlow.collect {
@@ -202,5 +279,15 @@ class ProductsViewModelTest {
             }
             job.cancel()
         }
+    }
+
+    private fun initializeViewModel() {
+        productsViewModel = ProductsViewModel(
+            getProductListUseCase,
+            saveProductUseCase,
+            getCartUseCase,
+            deleteCartItemUseCase,
+            updateCartUseCase
+        )
     }
 }
