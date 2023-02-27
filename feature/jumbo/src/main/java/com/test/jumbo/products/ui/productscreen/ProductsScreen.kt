@@ -94,7 +94,12 @@ fun ProductListItem(
 
                 Text(
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    text = "${formatPrice(product.prices.price.amount)}${
+                    text = "${
+                        formatPrice(
+                            product.prices.price.amount,
+                            product.prices.price.currency
+                        )
+                    }${
                         stringResource(id = R.string.cart_screen_price_per_unity_title)
                     }",
                     style = TextStyle(
@@ -104,7 +109,10 @@ fun ProductListItem(
                 Text(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = "${
-                        formatPrice(product.prices.unitPrice.price.amount)
+                        formatPrice(
+                            product.prices.unitPrice.price.amount,
+                            product.prices.price.currency
+                        )
                     }/${product.prices.unitPrice.unit}",
                     style = TextStyle(
                         color = colorResource(R.color.green)

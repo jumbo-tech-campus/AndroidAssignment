@@ -34,7 +34,8 @@ const val MIN_ITEM_TO_DELETE = 1
 
 @Composable
 fun SummaryItem(
-    total: Int
+    total: Int,
+    currencyCode: String
 ) {
     Row(
         modifier = Modifier
@@ -52,7 +53,7 @@ fun SummaryItem(
             )
         )
         Text(
-            text = formatPrice(total),
+            text = formatPrice(total, currencyCode),
             modifier = Modifier.alignBy(LastBaseline),
             style = TextStyle(
                 color = colorResource(R.color.black)
@@ -105,6 +106,7 @@ fun CartList(
             Divider()
             SummaryItem(
                 total = cartItemList.sumOf { it.price * it.quantity },
+                currencyCode = cartItemList.first().currency
             )
         }
     }
@@ -145,7 +147,7 @@ fun CartItem(
             )
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                text = formatPrice(cartItem.price),
+                text = formatPrice(cartItem.price, cartItem.currency),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 style = TextStyle(color = colorResource(R.color.gray))
