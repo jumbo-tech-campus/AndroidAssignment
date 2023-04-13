@@ -1,4 +1,4 @@
-package com.assignment.jumboshop.ui.theme
+package com.assignment.design_system.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,18 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.assignment.jumboshop'
-    compileSdk 33
+    namespace ProjectConfig.applicationId
+    compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId "com.assignment.jumboshop"
-        minSdk 21
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        applicationId ProjectConfig.applicationId
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
+        versionCode ProjectConfig.versionCode
+        versionName ProjectConfig.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -47,6 +49,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation project(path: ':design-system')
+
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.lifecycle.runtime.ktx)
@@ -56,7 +62,15 @@ dependencies {
     implementation(AndroidX.compose.ui.graphics)
     implementation(AndroidX.compose.ui.toolingPreview)
     implementation(AndroidX.compose.material3)
-    testImplementation(Libs.junit_junit)
+    implementation(AndroidX.compose.animation.core)
+    implementation(AndroidX.compose.animation.graphics)
+    implementation(AndroidX.navigation.compose)
+    implementation(COIL.compose)
+    implementation(Google.dagger.hilt.android)
+    kapt(Google.dagger.hilt.compiler)
+    implementation(Arrow.fx.coroutines)
+
+    testImplementation(Testing.junit.bom)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)
     androidTestImplementation(AndroidX.compose.ui.testJunit4)
