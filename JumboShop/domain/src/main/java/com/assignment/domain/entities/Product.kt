@@ -1,18 +1,11 @@
 package com.assignment.domain.entities
 
-import java.math.BigDecimal
-
 data class Product(
     val id: String,
     val title: String,
     val prices: Prices,
-    val available: Boolean,
-    val productType: String,
-    val nixProduct: Boolean,
     val quantity: String,
     val imageInfo: ImageInfo,
-    val topLevelCategory: String,
-    val topLevelCategoryId: String
 )
 
 data class Prices(
@@ -22,7 +15,7 @@ data class Prices(
 
 data class CurrencyAmount(
     val currency: String,
-    val amount: BigDecimal
+    val amount: Double
 )
 
 data class UnitPrice(

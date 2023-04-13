@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation(Google.dagger.hilt.android)
     kapt(Google.dagger.hilt.compiler)
+    implementation(Arrow.fx.coroutines)
 
     testImplementation(Testing.junit.bom)
 }

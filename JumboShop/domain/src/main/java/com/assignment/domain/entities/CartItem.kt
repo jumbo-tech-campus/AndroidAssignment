@@ -1,6 +1,9 @@
 package com.assignment.domain.entities
 
 data class CartItem(
-    val product: Product,
-    var quantity: Int
+    val id: String,
+    val title: String,
+    val imageUrl: String,
+    val price: Double,
+    val quantity: Int,
 )
