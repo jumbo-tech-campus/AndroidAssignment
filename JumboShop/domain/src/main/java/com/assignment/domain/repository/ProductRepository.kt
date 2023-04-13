@@ -1,8 +1,10 @@
 package com.assignment.domain.repository
 
+import arrow.core.Either
 import com.assignment.domain.entities.Product
+import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
-    suspend fun getProducts(): List<Product>
+    suspend fun getProducts(): Flow<Either<Exception, List<Product>>>
     suspend fun getProductById(id: String): Product?
 }
