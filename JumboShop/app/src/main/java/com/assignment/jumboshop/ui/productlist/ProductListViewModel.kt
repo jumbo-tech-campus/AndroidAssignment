@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import com.assignment.domain.entities.Product
 import com.assignment.domain.usecases.GetProductsUseCase
+import com.assignment.jumboshop.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductListViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
+    @IO private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _productsState = MutableStateFlow<ProductListUiState<List<Product>>>(
@@ -25,8 +29,8 @@ class ProductListViewModel @Inject constructor(
         loadProducts()
     }
 
-    private fun loadProducts() {
-        viewModelScope.launch {
+    fun loadProducts() {
+        viewModelScope.launch(dispatcher) {
             _productsState.value = ProductListUiState.Loading
             getProductsUseCase.execute().collect { result ->
                 _productsState.value = when (result) {
