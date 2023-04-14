@@ -32,6 +32,6 @@ fun JumboHeader(
         softWrap = softWrap,
         maxLines = maxLines,
         onTextLayout = onTextLayout,
-        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+        style = MaterialTheme.typography.titleLarge,
     )
 }

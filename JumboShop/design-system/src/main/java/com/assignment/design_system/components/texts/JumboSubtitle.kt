@@ -31,6 +31,6 @@ fun JumboSubtitle(
         softWrap = softWrap,
         maxLines = maxLines,
         onTextLayout = onTextLayout,
-        style = MaterialTheme.typography.titleSmall
+        style = MaterialTheme.typography.titleMedium
     )
 }

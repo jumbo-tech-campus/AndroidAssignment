@@ -31,6 +31,6 @@ fun JumboBody(
         softWrap = softWrap,
         maxLines = maxLines,
         onTextLayout = onTextLayout,
-        style = MaterialTheme.typography.bodyMedium
+        style = MaterialTheme.typography.bodyLarge
     )
 }

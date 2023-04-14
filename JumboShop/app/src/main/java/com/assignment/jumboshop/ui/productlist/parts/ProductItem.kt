@@ -42,7 +42,7 @@ fun ProductItem(product: Product, onAddToCart: (Product) -> Unit, onClick: (Prod
                 JumboSubtitle(text = product.title + "\n", maxLines = 2, overflow = TextOverflow.Ellipsis)
                 JumboBody(text = product.quantity)
                 Spacer(modifier = Modifier.height(8.dp))
-                JumboTitle(text = "${product.prices.price.currency} ${product.prices.price.amount / 100.0}")
+                JumboTitle(text = "${product.prices.price.currency} ${product.prices.price.amount}")
 
                 JumboButton(text = "Add to Cart",onClick = { onAddToCart(product) }, modifier = Modifier.padding(top = 8.dp))
             }
