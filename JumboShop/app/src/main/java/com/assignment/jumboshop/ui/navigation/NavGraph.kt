@@ -7,12 +7,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.assignment.jumboshop.ui.StartScreen
+import com.assignment.jumboshop.ui.cart.CartScreen
+import com.assignment.jumboshop.ui.cart.CartViewModel
 import com.assignment.jumboshop.ui.productlist.ProductListScreen
 import com.assignment.jumboshop.ui.productlist.ProductListViewModel
 
 @Composable
 fun JumboNavGraph() {
     val productsViewModel: ProductListViewModel = viewModel()
+    val cartViewModel: CartViewModel = viewModel()
 
     val navController = rememberNavController()
     NavHost(navController, startDestination = Screens.Start.route) {
@@ -20,19 +23,39 @@ fun JumboNavGraph() {
             StartScreen(navController)
         }
         composable(Screens.ProductsList.route) {
-            val cartItemsCount = 0
+            val cartItemsCount = cartViewModel.cartUiState.collectAsState().value.cartItems.size
             val productListUiState = productsViewModel.productsState.collectAsState().value
             ProductListScreen(
                 state = productListUiState,
                 cartItemsCount = cartItemsCount,
                 onAddToCart = { product ->
-
+                    cartViewModel.addToCart(product)
                 },
                 openCart = {
                     navController.navigate(Screens.Cart.route)
                 },
                 openDetails = {
                     navController.navigate(Screens.ProductDetails.route + "/$it")
+                })
+        }
+        composable(Screens.Cart.route) {
+            val  cartUiState = cartViewModel.cartUiState.collectAsState().value
+            CartScreen(
+                cartUiState = cartUiState,
+                incrementItem = {
+                    cartViewModel.incrementCartItem(it)
+                },
+                decrementItem = {
+                    cartViewModel.decrementCartItem(it)
+                },
+                deleteItem = {
+                    cartViewModel.deleteCartItem(it)
+                },
+                clearItems = {
+                    cartViewModel.clearCart()
+                },
+                navBack = {
+                    navController.popBackStack()
                 })
         }
     }

@@ -10,6 +10,7 @@ object CartItemEntityMapper {
             title = cartItemEntity.title,
             imageUrl = cartItemEntity.imageUrl,
             price = cartItemEntity.price,
+            currency = cartItemEntity.currency,
             quantity = cartItemEntity.quantity,
         )
     }
@@ -20,6 +21,7 @@ object CartItemEntityMapper {
             title = cartItem.title,
             imageUrl = cartItem.imageUrl,
             price = cartItem.price,
+            currency = cartItem.currency,
             quantity = cartItem.quantity,
         )
     }

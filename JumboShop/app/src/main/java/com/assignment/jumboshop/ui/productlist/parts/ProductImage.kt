@@ -16,6 +16,7 @@ fun ProductImage(url: String, contentDescription: String = "", modifier: Modifie
         model = url,
         contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
-        error = painterResource(id = R.drawable.ic_launcher_background),
+        placeholder = painterResource(id = R.drawable.placeholder),
+        error = painterResource(id = R.drawable.placeholder),
     )
 }

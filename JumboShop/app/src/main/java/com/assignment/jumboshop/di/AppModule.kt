@@ -3,6 +3,7 @@ package com.assignment.jumboshop.di
 import com.assignment.domain.repository.CartRepository
 import com.assignment.domain.repository.ProductRepository
 import com.assignment.domain.usecases.AddToCartUseCase
+import com.assignment.domain.usecases.ClearCartUseCase
 import com.assignment.domain.usecases.DecrementCartItemUseCase
 import com.assignment.domain.usecases.GetCartItemsUseCase
 import com.assignment.domain.usecases.GetProductsUseCase
@@ -40,7 +41,11 @@ class AppModule {
     fun provideDeleteCartItemUseCase(cartRepository: CartRepository): DeleteCartItemUseCase {
         return DeleteCartItemUseCase(cartRepository)
     }
-
+    @Provides
+    @Singleton
+    fun provideClearCartUseCase(cartRepository: CartRepository): ClearCartUseCase {
+        return ClearCartUseCase(cartRepository)
+    }
     @Provides
     @Singleton
     fun provideIncrementCartItemUseCase(cartRepository: CartRepository): IncrementCartItemUseCase {

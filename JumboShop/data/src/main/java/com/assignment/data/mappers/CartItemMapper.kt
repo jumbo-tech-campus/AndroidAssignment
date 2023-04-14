@@ -10,6 +10,7 @@ object CartItemMapper {
             title = dataCartItem.title,
             imageUrl = dataCartItem.imageUrl,
             price = dataCartItem.price,
+            currency = dataCartItem.currency,
             quantity = dataCartItem.quantity,
         )
     }
@@ -20,6 +21,7 @@ object CartItemMapper {
             title = cartItem.title,
             imageUrl = cartItem.imageUrl,
             price = cartItem.price,
+            currency = cartItem.currency,
             quantity = cartItem.quantity,
         )
     }

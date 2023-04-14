@@ -33,4 +33,8 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun deleteCartItem(itemId: String) {
         cartLocalDataSource.deleteCartItem(itemId)
     }
+
+    override suspend fun clearCart() {
+        cartLocalDataSource.clearCart()
+    }
 }

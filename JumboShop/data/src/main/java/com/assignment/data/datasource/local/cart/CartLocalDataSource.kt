@@ -31,4 +31,8 @@ class CartLocalDataSource @Inject constructor(private val cartDao: CartDao) {
     suspend fun deleteCartItem(itemId: String) {
         cartDao.deleteCartItem(itemId)
     }
+
+   suspend fun clearCart() {
+        cartDao.deleteAllCartItems()
+    }
 }

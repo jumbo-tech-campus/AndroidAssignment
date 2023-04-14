@@ -32,7 +32,7 @@ fun ProductListScreen(
 ) {
     Scaffold(
         topBar = {
-            JumboAppBar(title = "Jumbo Shop")
+            JumboAppBar(title = "Products")
         },
         floatingActionButton = {
             ShoppingCartFAB(cartItemsCount) {

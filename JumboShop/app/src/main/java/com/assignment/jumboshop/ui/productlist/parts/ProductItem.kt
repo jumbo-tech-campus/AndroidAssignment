@@ -39,7 +39,7 @@ fun ProductItem(product: Product, onAddToCart: (Product) -> Unit, onClick: (Prod
                 contentDescription = product.title,
                 modifier = Modifier.size(80.dp),
             )
-
+            Spacer(modifier = Modifier.height(4.dp))
             Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
                 JumboTitle(text = product.title + "\n", maxLines = 2, overflow = TextOverflow.Ellipsis)
                 JumboBody(text = product.quantity)
