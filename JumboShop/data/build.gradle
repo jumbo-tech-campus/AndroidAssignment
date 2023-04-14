@@ -49,6 +49,9 @@ dependencies {
     kapt(AndroidX.room.compiler)
     implementation(Arrow.fx.coroutines)
 
-    testImplementation(Testing.junit.bom)
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.mockito.core)
+    testImplementation(Testing.mockito.kotlin)
+    testImplementation(KotlinX.coroutines.test)
     androidTestImplementation(AndroidX.test.ext.junit)
 }
