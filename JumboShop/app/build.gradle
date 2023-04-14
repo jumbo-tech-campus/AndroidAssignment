@@ -69,6 +69,7 @@ dependencies {
     implementation(Google.dagger.hilt.android)
     kapt(Google.dagger.hilt.compiler)
     implementation(Arrow.fx.coroutines)
+    implementation(Google.accompanist.navigationAnimation)
 
     testImplementation(Testing.junit.bom)
     androidTestImplementation(AndroidX.test.ext.junit)
