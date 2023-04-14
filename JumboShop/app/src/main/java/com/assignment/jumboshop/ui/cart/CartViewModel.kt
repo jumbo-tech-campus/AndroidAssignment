@@ -10,8 +10,9 @@ import com.assignment.domain.usecases.DecrementCartItemUseCase
 import com.assignment.domain.usecases.DeleteCartItemUseCase
 import com.assignment.domain.usecases.GetCartItemsUseCase
 import com.assignment.domain.usecases.IncrementCartItemUseCase
+import com.assignment.jumboshop.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -26,6 +27,7 @@ class CartViewModel @Inject constructor(
     private val clearCartUseCase: ClearCartUseCase,
     private val incrementCartItemUseCase: IncrementCartItemUseCase,
     private val decrementCartItemUseCase: DecrementCartItemUseCase,
+    @IO private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _cartUiState = MutableStateFlow(CartUiState(emptyList(), 0.0))
@@ -35,8 +37,8 @@ class CartViewModel @Inject constructor(
         fetchCartItems()
     }
 
-    private fun fetchCartItems() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun fetchCartItems() {
+        viewModelScope.launch(dispatcher) {
             getCartItemsUseCase.execute().collectLatest { items ->
                 _cartUiState.value = CartUiState(
                     cartItems = items,
@@ -54,7 +56,7 @@ class CartViewModel @Inject constructor(
             currency = product.prices.price.currency,
             quantity = 1)
         if (_cartUiState.value.cartItems.find { it.id == product.id } == null) {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch(dispatcher) {
                 addToCartUseCase.execute(cartItem)
             }
         } else {
@@ -63,22 +65,22 @@ class CartViewModel @Inject constructor(
     }
 
     fun deleteCartItem(item: CartItem) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             deleteCartItemUseCase.execute(item.id)
         }
     }
     fun clearCart() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             clearCartUseCase.execute()
         }
     }
     fun incrementCartItem(item: CartItem) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             incrementCartItemUseCase.execute(item.id)
         }
     }
     fun decrementCartItem(item: CartItem) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             decrementCartItemUseCase.execute(item.id)
         }
     }
