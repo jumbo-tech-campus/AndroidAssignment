@@ -29,10 +29,11 @@ class ProductListViewModel @Inject constructor(
         loadProducts()
     }
 
-    fun loadProducts() {
+    fun loadProducts(refresh: Boolean = false) {
         viewModelScope.launch(dispatcher) {
-            _productsState.value = ProductListUiState.Loading
-            getProductsUseCase.execute().collect { result ->
+            _productsState.value = if(refresh) ProductListUiState.Refreshing
+            else ProductListUiState.Loading
+            getProductsUseCase.execute(refresh).collect { result ->
                 _productsState.value = when (result) {
                     is Either.Right -> ProductListUiState.Success(result.value)
                     is Either.Left -> ProductListUiState.Error(result.value)

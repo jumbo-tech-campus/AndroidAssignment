@@ -49,6 +49,9 @@ fun JumboNavGraph() {
                 },
                 openDetails = {
                     navController.navigate(Screens.ProductDetails.route + "/$it")
+                },
+                refreshList = {
+                    productsViewModel.loadProducts(true)
                 })
         }
         composable(route = Screens.ProductDetails.route + "/{productId}",

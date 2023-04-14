@@ -2,6 +2,7 @@ package com.assignment.data.repository
 
 import android.util.Log
 import arrow.core.Either
+import arrow.core.right
 import com.assignment.data.datasource.local.product.ProductLocalDataSource
 import com.assignment.data.datasource.remote.ProductRemoteDataSource
 import com.assignment.data.mappers.ProductDataMapper
@@ -19,13 +20,12 @@ class ProductRepositoryImpl @Inject constructor(
     private val productRemoteDataSource: ProductRemoteDataSource,
     private val productLocalDataSource: ProductLocalDataSource,
 ) : ProductRepository {
-    // TODO: Replace with query from Local Cache
-    override suspend fun getProductById(id: String): Product? {
-        val products = getProducts()
-        return products.firstOrNull()?.getOrNull()?.find { it.id == id }
+    override suspend fun getProductById(id: String): Product {
+        val productData = productLocalDataSource.getProduct(id)
+        return ProductDataMapper.toDomain(productData)
     }
 
-    override suspend fun getProducts(): Flow<Either<Exception, List<Product>>> {
+    override suspend fun getProducts(refresh: Boolean): Flow<Either<Exception, List<Product>>> {
         return productLocalDataSource.getProducts()
             .map { productsDataModel ->
                 try {
@@ -36,15 +36,19 @@ class ProductRepositoryImpl @Inject constructor(
                 }
             }
             .onStart {
-                fetchProductsFromApi()
+                val isLocalEmpty = productLocalDataSource.getProducts().first().isEmpty()
+                if (refresh || isLocalEmpty) {
+                    fetchProductsFromApi()
+                }
             }.catch {
                 Either.Left(it)
             }
     }
 
+
     private suspend fun fetchProductsFromApi() {
-            val apiProducts = productRemoteDataSource.getProducts().first()
-            productLocalDataSource.deleteAllProducts()
-            productLocalDataSource.insertProducts(apiProducts)
+        val apiProducts = productRemoteDataSource.getProducts().first()
+        productLocalDataSource.deleteAllProducts()
+        productLocalDataSource.insertProducts(apiProducts)
     }
 }

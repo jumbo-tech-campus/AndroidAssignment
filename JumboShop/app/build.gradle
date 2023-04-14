@@ -62,6 +62,7 @@ dependencies {
     implementation(AndroidX.compose.ui.graphics)
     implementation(AndroidX.compose.ui.toolingPreview)
     implementation(AndroidX.compose.material3)
+    implementation(AndroidX.compose.material)
     implementation(AndroidX.compose.animation.core)
     implementation(AndroidX.compose.animation.graphics)
     implementation(AndroidX.navigation.compose)

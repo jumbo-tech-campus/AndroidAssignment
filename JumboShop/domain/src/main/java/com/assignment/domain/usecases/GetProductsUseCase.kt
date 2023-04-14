@@ -6,7 +6,7 @@ import com.assignment.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetProductsUseCase constructor(private val productRepository: ProductRepository) {
-    suspend fun execute(): Flow<Either<Exception, List<Product>>> {
-        return productRepository.getProducts()
+    suspend fun execute(refresh: Boolean): Flow<Either<Exception, List<Product>>> {
+        return productRepository.getProducts(refresh)
     }
 }

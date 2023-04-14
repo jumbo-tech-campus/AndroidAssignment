@@ -1,6 +1,5 @@
 package com.assignment.data.datasource.local.product
 
-import android.util.Log
 import com.assignment.data.datasource.local.mappers.ProductEntityMapper
 import com.assignment.data.models.ProductDataModel
 import kotlinx.coroutines.flow.Flow
@@ -22,5 +21,10 @@ class ProductLocalDataSource @Inject constructor(private val productDao: Product
     suspend fun insertProducts(apiProducts: List<ProductDataModel>) {
         val productsEntity = ProductEntityMapper.modelListToEntityList(apiProducts)
         productDao.insertProducts(productsEntity)
+    }
+
+    suspend fun getProduct(id: String): ProductDataModel {
+        val productEntity = productDao.getProduct(id)
+      return ProductEntityMapper.entityToModelData(productEntity)
     }
 }
