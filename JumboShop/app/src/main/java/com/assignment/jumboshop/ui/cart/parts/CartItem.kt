@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.assignment.design_system.components.buttons.CircularButton
+import com.assignment.design_system.components.texts.JumboSubtitle
 import com.assignment.design_system.components.texts.JumboTitle
 import com.assignment.domain.entities.CartItem
 import com.assignment.jumboshop.ui.productlist.parts.ProductImage
@@ -44,7 +45,7 @@ fun CartItem(
                 url = cartItem.imageUrl)
 
             Column(modifier = Modifier.padding(start = 16.dp)) {
-                JumboTitle(text = cartItem.title)
+                JumboSubtitle(text = cartItem.title)
                 Spacer(modifier = Modifier.height(8.dp))
                 JumboTitle(text = "${cartItem.currency} ${cartItem.price}")
                 Row( modifier = Modifier

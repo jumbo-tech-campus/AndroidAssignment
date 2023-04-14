@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.assignment.jumboshop.ui.StartScreen
 import com.assignment.jumboshop.ui.cart.CartScreen
 import com.assignment.jumboshop.ui.cart.CartViewModel
+import com.assignment.jumboshop.ui.productdetails.ProductDetailsScreen
 import com.assignment.jumboshop.ui.productlist.ProductListScreen
 import com.assignment.jumboshop.ui.productlist.ProductListViewModel
 
@@ -37,6 +38,21 @@ fun JumboNavGraph() {
                 openDetails = {
                     navController.navigate(Screens.ProductDetails.route + "/$it")
                 })
+        }
+        composable(route = Screens.ProductDetails.route + "/{productId}") { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")
+            val product = productsViewModel.getProductById(productId)
+            val cartItemsCount = cartViewModel.cartUiState.collectAsState().value.cartItems.size
+            if (product != null) {
+                ProductDetailsScreen(product = product, cartItemsCount, onAddToCart = {
+                    cartViewModel.addToCart(it)
+                },
+                    openCart = {
+                        navController.navigate(Screens.Cart.route)
+                    },navBack = {
+                        navController.popBackStack()
+                    })
+            }
         }
         composable(Screens.Cart.route) {
             val  cartUiState = cartViewModel.cartUiState.collectAsState().value

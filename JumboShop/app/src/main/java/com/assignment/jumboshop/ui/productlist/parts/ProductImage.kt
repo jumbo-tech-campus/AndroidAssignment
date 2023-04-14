@@ -9,13 +9,13 @@ import coil.compose.AsyncImage
 import com.assignment.jumboshop.R
 
 @Composable
-fun ProductImage(url: String, contentDescription: String = "", modifier: Modifier) {
+fun ProductImage(url: String, contentDescription: String = "", contentScale: ContentScale = ContentScale.Crop, modifier: Modifier) {
     Log.d("PImage", "URL: $url")
     AsyncImage(
         modifier = modifier,
         model = url,
         contentDescription = contentDescription,
-        contentScale = ContentScale.Crop,
+        contentScale = contentScale,
         placeholder = painterResource(id = R.drawable.placeholder),
         error = painterResource(id = R.drawable.placeholder),
     )

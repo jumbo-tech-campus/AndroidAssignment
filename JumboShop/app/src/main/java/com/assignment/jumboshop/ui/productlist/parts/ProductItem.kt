@@ -3,12 +3,10 @@ package com.assignment.jumboshop.ui.productlist.parts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.assignment.design_system.components.buttons.JumboButton
 import com.assignment.design_system.components.texts.JumboBody
-import com.assignment.design_system.components.texts.JumboButtonText
+import com.assignment.design_system.components.texts.JumboSubtitle
 import com.assignment.design_system.components.texts.JumboTitle
 import com.assignment.domain.entities.Product
 
@@ -41,7 +39,7 @@ fun ProductItem(product: Product, onAddToCart: (Product) -> Unit, onClick: (Prod
             )
             Spacer(modifier = Modifier.height(4.dp))
             Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-                JumboTitle(text = product.title + "\n", maxLines = 2, overflow = TextOverflow.Ellipsis)
+                JumboSubtitle(text = product.title + "\n", maxLines = 2, overflow = TextOverflow.Ellipsis)
                 JumboBody(text = product.quantity)
                 Spacer(modifier = Modifier.height(8.dp))
                 JumboTitle(text = "${product.prices.price.currency} ${product.prices.price.amount / 100.0}")
