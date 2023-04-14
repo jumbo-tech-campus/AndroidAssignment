@@ -37,5 +37,9 @@ dependencies {
     kapt(Google.dagger.hilt.compiler)
     implementation(Arrow.fx.coroutines)
 
-    testImplementation(Testing.junit.bom)
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.mockito.core)
+    testImplementation(Testing.mockito.kotlin)
+
+    testImplementation(KotlinX.coroutines.test)
 }
