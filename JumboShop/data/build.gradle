@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace ProjectConfig.dataModule
+    compileSdk ProjectConfig.compileSdk
+
+    defaultConfig {
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(Google.dagger.hilt.android)
+    kapt(Google.dagger.hilt.compiler)
+
+    implementation(Square.Moshi)
+    implementation(Square.Retrofit2)
+    implementation(Square.Retrofit2.converter.moshi)
+    kapt(Square.Moshi.kotlinCodegen)
+    implementation(Square.Moshi.kotlinReflect)
+    implementation(Square.OkHttp3.loggingInterceptor)
+
+    implementation(AndroidX.room.runtime)
+    implementation(AndroidX.room.ktx)
+    kapt(AndroidX.room.compiler)
+    implementation(Arrow.fx.coroutines)
+
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.mockito.core)
+    testImplementation(Testing.mockito.kotlin)
+    testImplementation(KotlinX.coroutines.test)
+    androidTestImplementation(AndroidX.test.ext.junit)
+}
