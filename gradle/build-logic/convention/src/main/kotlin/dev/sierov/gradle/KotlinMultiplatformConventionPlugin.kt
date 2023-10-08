@@ -1,6 +1,5 @@
 package dev.sierov.gradle
 
-import com.android.build.gradle.BaseExtension
 import dev.sierov.gradle.internal.android
 import dev.sierov.gradle.internal.configureKotlin
 import org.gradle.api.Plugin
@@ -10,13 +9,10 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.compose.android.AndroidExtension
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 class KotlinMultiplatformConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         with(pluginManager) {
@@ -34,7 +30,7 @@ class KotlinMultiplatformConventionPlugin : Plugin<Project> {
             // accessible via `val iosMain by getting` instead of `creating`
             applyDefaultHierarchyTemplate()
 
-            jvm()
+            // jvm() // disable jvm target for now
             if (pluginManager.hasPlugin("com.android.library")) {
                 androidTarget()
             }
