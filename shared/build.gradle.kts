@@ -16,6 +16,7 @@ kotlin {
             dependencies {
                 api(projects.feature.root)
                 api(projects.feature.products)
+                api(projects.feature.cart)
 
                 implementation(projects.core)
                 implementation(libs.kotlininject.runtime)

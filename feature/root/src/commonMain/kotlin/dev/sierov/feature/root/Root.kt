@@ -63,20 +63,20 @@ private fun BottomNavigationBar(
     ) {
         NavigationBarItem(
             selected = selectedScreen is StartScreen,
-            onClick = { onNavigationSelected(selectedScreen) },
+            onClick = { onNavigationSelected(StartScreen) },
             label = { Text(text = "Start") },
             icon = { Icon(imageVector = Icons.Default.Menu, contentDescription = null) },
         )
         NavigationBarItem(
             selected = selectedScreen is ProductsScreen,
             label = { Text(text = "Products") },
-            onClick = { onNavigationSelected(selectedScreen) },
+            onClick = { onNavigationSelected(ProductsScreen) },
             icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = null) },
         )
         NavigationBarItem(
             selected = selectedScreen is CartScreen,
             label = { Text(text = "Cart") },
-            onClick = { onNavigationSelected(selectedScreen) },
+            onClick = { onNavigationSelected(CartScreen) },
             icon = { Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = null) },
         )
     }

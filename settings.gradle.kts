@@ -41,4 +41,5 @@ include(
     ":screen",
     ":feature:root",
     ":feature:products",
+    ":feature:cart",
 )
