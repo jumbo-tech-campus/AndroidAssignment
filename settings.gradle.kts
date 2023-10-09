@@ -40,6 +40,7 @@ include(
     ":core",
     ":screen",
     ":feature:root",
+    ":feature:start",
     ":feature:products",
     ":feature:cart",
 )

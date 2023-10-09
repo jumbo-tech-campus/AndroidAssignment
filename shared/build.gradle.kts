@@ -15,6 +15,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.feature.root)
+                api(projects.feature.start)
                 api(projects.feature.products)
                 api(projects.feature.cart)
 
