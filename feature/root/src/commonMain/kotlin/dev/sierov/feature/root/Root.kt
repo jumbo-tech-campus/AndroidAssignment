@@ -1,5 +1,8 @@
 package dev.sierov.feature.root
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material.icons.Icons
@@ -15,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.backstack.isAtRoot
@@ -32,14 +36,20 @@ internal fun Root(
     modifier: Modifier = Modifier,
 ) {
     val rootScreen by remember(backstack) {
-        derivedStateOf { backstack.last().screen }
+        derivedStateOf { checkNotNull(backstack.topRecord?.screen) { "Top record is null" } }
     }
 
     val bottomBar = @Composable {
-        BottomNavigationBar(
-            selectedScreen = rootScreen,
-            onNavigationSelected = { navigator.resetRootIfDifferent(it, backstack) }
-        )
+        AnimatedVisibility(
+            visible = rootScreen !is StartScreen,
+            enter = expandVertically(expandFrom = Alignment.Top),
+            exit = shrinkVertically(shrinkTowards = Alignment.Top),
+        ) {
+            BottomNavigationBar(
+                selectedScreen = rootScreen,
+                onNavigationSelected = { navigator.resetRootIfDifferent(it, backstack) }
+            )
+        }
     }
 
     Scaffold(bottomBar = bottomBar) { paddingValues ->

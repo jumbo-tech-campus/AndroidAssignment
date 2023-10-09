@@ -1,5 +1,8 @@
-import androidx.compose.ui.window.ComposeUIViewController
+import dev.sierov.shared.component.IosActivityComponent
+import platform.UIKit.UIViewController
 
 actual fun getPlatformName(): String = "iOS"
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController(
+    activityComponent: IosActivityComponent,
+): UIViewController = activityComponent.appUiViewController()
