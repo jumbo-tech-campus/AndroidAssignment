@@ -38,5 +38,6 @@ include(
     ":androidApp",
     ":shared",
     ":core",
+    ":feature:root",
     ":feature:products",
 )
