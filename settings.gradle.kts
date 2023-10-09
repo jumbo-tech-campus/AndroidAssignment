@@ -38,6 +38,7 @@ include(
     ":androidApp",
     ":shared",
     ":core",
+    ":screen",
     ":feature:root",
     ":feature:products",
 )

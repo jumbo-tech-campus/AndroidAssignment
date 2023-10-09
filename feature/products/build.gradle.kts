@@ -14,6 +14,7 @@ kotlin {
             dependencies {
                 api(libs.circuit.foundation)
                 implementation(projects.core)
+                implementation(projects.screen)
                 implementation(libs.circuit.runtime)
                 implementation(libs.circuit.retained)
                 implementation(compose.foundation)

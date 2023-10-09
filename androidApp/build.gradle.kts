@@ -17,4 +17,6 @@ android {
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(projects.shared)
+    implementation(projects.screen)
+    implementation(libs.circuit.foundation)
 }

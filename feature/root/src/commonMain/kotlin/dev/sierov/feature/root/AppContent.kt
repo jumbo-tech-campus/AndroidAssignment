@@ -13,7 +13,6 @@ import me.tatarka.inject.annotations.Inject
 typealias AppContent = @Composable (
     backstack: SaveableBackStack,
     navigator: Navigator,
-    onOpenUrl: (String) -> Unit,
     modifier: Modifier,
 ) -> Unit
 
@@ -22,13 +21,16 @@ typealias AppContent = @Composable (
 fun AppContent(
     @Assisted backstack: SaveableBackStack,
     @Assisted navigator: Navigator,
-    @Assisted onOpenUrl: (String) -> Unit,
     circuit: Circuit,
     @Assisted modifier: Modifier = Modifier,
 ) {
     CircuitCompositionLocals(circuit) {
         MaterialTheme {
-            // TODO() add Root composable
+            Root(
+                backstack = backstack,
+                navigator = navigator,
+                modifier = modifier
+            )
         }
     }
 }

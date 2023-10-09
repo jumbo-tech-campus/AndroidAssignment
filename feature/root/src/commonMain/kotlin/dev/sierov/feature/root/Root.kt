@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -20,6 +21,9 @@ import com.slack.circuit.backstack.isAtRoot
 import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.Screen
+import dev.sierov.screen.CartScreen
+import dev.sierov.screen.ProductsScreen
+import dev.sierov.screen.StartScreen
 
 @Composable
 internal fun Root(
@@ -33,6 +37,7 @@ internal fun Root(
 
     val bottomBar = @Composable {
         BottomNavigationBar(
+            selectedScreen = rootScreen,
             onNavigationSelected = { navigator.resetRootIfDifferent(it, backstack) }
         )
     }
@@ -48,7 +53,8 @@ internal fun Root(
 
 @Composable
 private fun BottomNavigationBar(
-    onNavigationSelected: () -> Unit,
+    selectedScreen: Screen,
+    onNavigationSelected: (Screen) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NavigationBar(
@@ -56,18 +62,21 @@ private fun BottomNavigationBar(
         windowInsets = WindowInsets.navigationBars,
     ) {
         NavigationBarItem(
-            selected = false,
-            onClick = { onNavigationSelected() },
+            selected = selectedScreen is StartScreen,
+            onClick = { onNavigationSelected(selectedScreen) },
+            label = { Text(text = "Start") },
             icon = { Icon(imageVector = Icons.Default.Menu, contentDescription = null) },
         )
         NavigationBarItem(
-            selected = false,
-            onClick = { onNavigationSelected() },
+            selected = selectedScreen is ProductsScreen,
+            label = { Text(text = "Products") },
+            onClick = { onNavigationSelected(selectedScreen) },
             icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = null) },
         )
         NavigationBarItem(
-            selected = false,
-            onClick = { onNavigationSelected() },
+            selected = selectedScreen is CartScreen,
+            label = { Text(text = "Cart") },
+            onClick = { onNavigationSelected(selectedScreen) },
             icon = { Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = null) },
         )
     }

@@ -5,6 +5,7 @@ import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import dev.sierov.screen.ProductsScreen
 import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
@@ -15,9 +16,10 @@ class ProductsPresenterFactory(
     override fun create(
         screen: Screen,
         navigator: Navigator,
-        context: CircuitContext
-    ): Presenter<*>? {
-        return presenterFactory(navigator)
+        context: CircuitContext,
+    ): Presenter<*>? = when (screen) {
+        is ProductsScreen -> presenterFactory(navigator)
+        else -> null
     }
 }
 

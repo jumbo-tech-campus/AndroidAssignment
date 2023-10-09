@@ -7,9 +7,9 @@ import me.tatarka.inject.annotations.IntoSet
 import me.tatarka.inject.annotations.Provides
 
 interface ProductsComponent {
-    @ActivityScoped
     @Provides
     @IntoSet
+    @ActivityScoped
     fun bindProductsPresenterFactory(factory: ProductsPresenterFactory): Presenter.Factory = factory
 
     @Provides

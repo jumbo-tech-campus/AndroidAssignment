@@ -9,10 +9,14 @@ import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.runtime.ui.Ui
 import com.slack.circuit.runtime.ui.ui
+import dev.sierov.screen.ProductsScreen
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class ProductsUiFactory : Ui.Factory {
-    override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
-        return ui<ProductsUiState> { state, modifier -> Products(state, modifier) }
+    override fun create(screen: Screen, context: CircuitContext): Ui<*>? = when (screen) {
+        is ProductsScreen -> ui<ProductsUiState> { state, modifier -> Products(state, modifier) }
+        else -> null
     }
 }
 
