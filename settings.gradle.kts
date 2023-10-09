@@ -37,4 +37,5 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     ":androidApp",
     ":shared",
+    ":feature:products"
 )
