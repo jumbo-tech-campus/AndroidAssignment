@@ -13,11 +13,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(libs.circuit.foundation)
+                implementation(projects.core)
                 implementation(libs.circuit.runtime)
                 implementation(libs.circuit.retained)
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 implementation(compose.animation)
+                implementation(libs.kotlininject.runtime)
             }
         }
     }
