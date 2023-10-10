@@ -39,6 +39,7 @@ include(
     ":shared",
     ":core",
     ":screen",
+    ":domain:model",
     ":feature:root",
     ":feature:start",
     ":feature:products",
