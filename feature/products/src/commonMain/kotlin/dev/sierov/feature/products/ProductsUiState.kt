@@ -6,9 +6,14 @@ import dev.sierov.domain.model.product.Product
 
 data class ProductsUiState(
     val products: List<Product>,
+    val loading: Boolean,
+    val refreshing: Boolean,
     val eventSink: (ProductsUiEvent) -> Unit,
 ) : CircuitUiState
 
 sealed class ProductsUiEvent : CircuitUiEvent {
-    data object Start : ProductsUiEvent()
+    data object LoadProducts : ProductsUiEvent()
+    data object RefreshProducts : ProductsUiEvent()
+    class AddProduct(val product: Product) : ProductsUiEvent()
+    class RemoveProduct(val product: Product) : ProductsUiEvent()
 }
