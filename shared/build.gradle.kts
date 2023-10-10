@@ -43,6 +43,7 @@ kotlin {
                 isStatic = true
                 baseName = "shared"
                 export(projects.feature.root)
+                export(projects.api.public)
             }
         }
     }

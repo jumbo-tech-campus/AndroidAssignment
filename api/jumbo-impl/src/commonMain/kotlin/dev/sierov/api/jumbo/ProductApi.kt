@@ -1,5 +1,6 @@
 package dev.sierov.api.jumbo
 
+import dev.sierov.api.BaseUrl
 import dev.sierov.api.ProductApi
 import dev.sierov.api.jumbo.internal.RequestExecutor
 import dev.sierov.api.result.ApiResult
@@ -12,12 +13,10 @@ import me.tatarka.inject.annotations.Inject
 
 @Inject
 class JumboProductApi(
+    private val baseUrl: BaseUrl,
     private val httpClient: HttpClient,
     private val requestExecutor: RequestExecutor,
 ) : ProductApi {
-
-    private val baseUrl =
-        "https://raw.githubusercontent.com/jumbo-tech-campus/AndroidAssignment/main"
 
     override suspend fun getProducts(): ApiResult<List<Product>, Unit> {
         @Serializable

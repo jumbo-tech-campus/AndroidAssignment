@@ -1,11 +1,15 @@
 package dev.sierov.shared.component
 
+import dev.sierov.api.BaseUrl
 import dev.sierov.api.jumbo.JumboApiComponent
 import dev.sierov.core.inject.ApplicationScoped
 import me.tatarka.inject.annotations.Component
+import me.tatarka.inject.annotations.Provides
 
 @ApplicationScoped
 @Component
-abstract class IosApplicationComponent : JumboApiComponent {
+abstract class IosApplicationComponent(
+    @get:Provides override val baseUrl: BaseUrl,
+) : JumboApiComponent {
     companion object
 }

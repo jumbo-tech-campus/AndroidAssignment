@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.rememberCircuitNavigator
+import dev.sierov.api.BaseUrl
 import dev.sierov.screen.StartScreen
 import dev.sierov.shared.component.AndroidActivityComponent
 import dev.sierov.shared.component.AndroidApplicationComponent
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        val applicationComponent = AndroidApplicationComponent.create(application)
+        val applicationComponent = AndroidApplicationComponent.create(BaseUrl.Default, application)
         val component = AndroidActivityComponent.create(this, applicationComponent)
         setContent {
             val backstack = rememberSaveableBackStack { push(StartScreen) }
