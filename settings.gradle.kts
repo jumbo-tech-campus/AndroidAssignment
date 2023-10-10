@@ -39,6 +39,8 @@ include(
     ":shared",
     ":core",
     ":screen",
+    ":api:public",
+    ":api:jumbo-impl",
     ":domain:model",
     ":feature:root",
     ":feature:start",

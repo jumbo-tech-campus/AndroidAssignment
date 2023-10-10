@@ -1,6 +1,7 @@
 package dev.sierov.shared.component
 
 import android.app.Application
+import dev.sierov.api.jumbo.JumboApiComponent
 import dev.sierov.core.inject.ApplicationScoped
 import me.tatarka.inject.annotations.Component
 import me.tatarka.inject.annotations.Provides
@@ -9,6 +10,6 @@ import me.tatarka.inject.annotations.Provides
 @ApplicationScoped
 abstract class AndroidApplicationComponent(
     @get:Provides val application: Application,
-) {
+) : JumboApiComponent {
     companion object
 }

@@ -15,7 +15,8 @@ kotlin {
                 api(libs.circuit.foundation)
                 implementation(projects.core)
                 implementation(projects.screen)
-                implementation(projects.domain.model) // temporary
+                implementation(projects.api.public)
+                implementation(projects.domain.model)
                 implementation(libs.circuit.runtime)
                 implementation(libs.circuit.retained)
                 implementation(compose.foundation)

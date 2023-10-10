@@ -18,6 +18,7 @@ kotlin {
                 api(projects.feature.start)
                 api(projects.feature.products)
                 api(projects.feature.cart)
+                api(projects.api.jumboImpl)
 
                 implementation(projects.core)
                 implementation(libs.kotlininject.runtime)

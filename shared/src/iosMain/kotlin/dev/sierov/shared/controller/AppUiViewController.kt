@@ -1,7 +1,7 @@
 package dev.sierov.shared.controller
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.rememberCircuitNavigator
@@ -18,6 +18,5 @@ fun AppUiViewController(
 ): UIViewController = ComposeUIViewController {
     val backstack = rememberSaveableBackStack { push(StartScreen) }
     val navigator = rememberCircuitNavigator(backstack, onRootPop = { /* no-op */ })
-    val uiViewController = LocalUIViewController.current
-    appContent(backstack, navigator, Modifier)
+    appContent(backstack, navigator, Modifier.fillMaxSize())
 }

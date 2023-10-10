@@ -1,6 +1,9 @@
 package dev.sierov.feature.products
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +25,11 @@ class ProductsUiFactory : Ui.Factory {
 
 @Composable
 fun Products(state: ProductsUiState, modifier: Modifier = Modifier) {
-    Box(modifier) {
-        Text(text = state.name, modifier = Modifier.align(Alignment.Center))
+    Column(modifier) {
+        LazyColumn {
+            items(state.products) { product ->
+                Text(text = product.title, modifier = Modifier)
+            }
+        }
     }
 }
