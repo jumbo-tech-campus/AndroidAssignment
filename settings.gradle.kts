@@ -42,6 +42,7 @@ include(
     ":api:public",
     ":api:jumbo-impl",
     ":domain:model",
+    ":domain:usecase",
     ":feature:root",
     ":feature:start",
     ":feature:products",

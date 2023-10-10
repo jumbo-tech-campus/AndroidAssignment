@@ -12,7 +12,6 @@ data class ProductsUiState(
 ) : CircuitUiState
 
 sealed class ProductsUiEvent : CircuitUiEvent {
-    data object LoadProducts : ProductsUiEvent()
     data object RefreshProducts : ProductsUiEvent()
     class AddProduct(val product: Product) : ProductsUiEvent()
     class RemoveProduct(val product: Product) : ProductsUiEvent()

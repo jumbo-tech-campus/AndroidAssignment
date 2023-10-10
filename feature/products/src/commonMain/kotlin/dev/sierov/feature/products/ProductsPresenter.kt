@@ -4,19 +4,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import co.touchlab.kermit.Logger
+import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import dev.sierov.api.ProductApi
-import dev.sierov.api.result.getOrThrow
+import dev.sierov.api.cause
+import dev.sierov.api.result.ApiResult.Failure
+import dev.sierov.api.result.ApiResult.Success
 import dev.sierov.domain.model.product.Product
+import dev.sierov.domain.usecase.GetProductsUsecase
 import dev.sierov.screen.ProductsScreen
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
@@ -37,24 +41,36 @@ class ProductsPresenterFactory(
 @Inject
 class ProductsPresenter(
     @Assisted private val navigator: Navigator,
-    private val productApi: ProductApi,
+    private val getProductsUsecase: () -> GetProductsUsecase,
 ) : Presenter<ProductsUiState> {
 
     @Composable
     override fun present(): ProductsUiState {
+        val coroutineScope = rememberCoroutineScope()
+        var products by rememberSaveable { mutableStateOf<List<Product>>(emptyList()) }
 
-        val refreshTrigger = remember { MutableSharedFlow<Cache>() }
-        val productsFlow = remember { refreshTrigger.obtainProducts() }
-        val products by productsFlow.collectAsState(emptyList())
+        val loadProducts = rememberRetained { getProductsUsecase() }
+        val loadingProducts by loadProducts.inProgress.collectAsState(initial = false)
+
+        val refreshProducts = rememberRetained { getProductsUsecase() }
+        val refreshingProducts by refreshProducts.inProgress.collectAsState(initial = false)
 
         LaunchedEffect(Unit) {
-            refreshTrigger.emit(Cache.Allowed)
+            when (val res = loadProducts(GetProductsUsecase.Params(forceFresh = false))) {
+                is Success -> products = res.response
+                is Failure -> Log.e("Failed to load products", res.cause)
+            }
         }
 
         fun eventSink(event: ProductsUiEvent) {
             when (event) {
-                is ProductsUiEvent.RefreshProducts -> refreshTrigger.tryEmit(Cache.NotAllowed)
-                is ProductsUiEvent.LoadProducts -> refreshTrigger.tryEmit(Cache.Allowed)
+                is ProductsUiEvent.RefreshProducts -> coroutineScope.launch {
+                    when (val res = refreshProducts(GetProductsUsecase.Params(forceFresh = true))) {
+                        is Success -> products = res.response
+                        is Failure -> Log.e("Failed to refresh products", res.cause)
+                    }
+                }
+
                 is ProductsUiEvent.AddProduct -> TODO()
                 is ProductsUiEvent.RemoveProduct -> TODO()
             }
@@ -62,16 +78,11 @@ class ProductsPresenter(
 
         return ProductsUiState(
             products = products,
-            loading = false,
-            refreshing = false,
+            loading = loadingProducts,
+            refreshing = refreshingProducts,
             eventSink = ::eventSink,
         )
     }
-
-    private fun Flow<Cache>.obtainProducts(): Flow<List<Product>> =
-        map { productApi.getProducts(allowCached = it == Cache.Allowed).getOrThrow() }
-
-    private enum class Cache {
-        Allowed, NotAllowed
-    }
 }
+
+private val Log = Logger.withTag("ProductsPresenter")

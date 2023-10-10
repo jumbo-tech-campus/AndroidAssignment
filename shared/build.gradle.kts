@@ -19,6 +19,7 @@ kotlin {
                 api(projects.feature.products)
                 api(projects.feature.cart)
                 api(projects.api.jumboImpl)
+                api(projects.domain.usecase)
 
                 implementation(projects.core)
                 implementation(libs.kotlininject.runtime)
