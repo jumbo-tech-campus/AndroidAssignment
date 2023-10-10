@@ -18,12 +18,12 @@ class JumboProductApi(
     private val requestExecutor: RequestExecutor,
 ) : ProductApi {
 
-    override suspend fun getProducts(): ApiResult<List<Product>, Unit> {
+    override suspend fun getProducts(allowCached: Boolean): ApiResult<List<Product>, Unit> {
         @Serializable
         data class Body(val products: List<Product>)
 
         return requestExecutor
-            .execute<Body, Unit> { httpClient.get("$baseUrl/products.json") }
+            .execute<Body, Unit> { httpClient.get("$baseUrl/products.json") { allowCache(allowCached) } }
             .map { it.products }
     }
 }

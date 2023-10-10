@@ -4,6 +4,7 @@ import dev.sierov.api.result.ApiResult
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.parameter
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
@@ -20,6 +21,7 @@ import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import me.tatarka.inject.annotations.Inject
+import kotlin.random.Random
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
@@ -91,6 +93,10 @@ class RequestExecutor(
         if (exception is IOException) return ApiResult.networkFailure(exception)
         return ApiResult.unknownFailure(exception)
     }
+
+    companion object {
+        const val CacheMarker = "cacheMarker"
+    }
 }
 
 class RequestContext internal constructor(
@@ -118,5 +124,12 @@ class RequestContext internal constructor(
     fun HttpRequestBuilder.setJsonBodyAndContentType(body: Any) {
         contentType(ContentType.Application.Json)
         setBody(body)
+    }
+
+    /**
+     * Hacky way to enforce cache refresh, see [disclaimer][dev.sierov.api.jumbo.ClientDrivenCacheControl]
+     */
+    fun HttpRequestBuilder.allowCache(allow: Boolean) {
+        if (!allow) parameter(RequestExecutor.CacheMarker, Random.nextInt())
     }
 }
