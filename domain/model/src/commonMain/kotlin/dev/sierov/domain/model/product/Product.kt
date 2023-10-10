@@ -1,5 +1,6 @@
 package dev.sierov.domain.model.product
 
+import androidx.compose.runtime.Immutable
 import dev.sierov.core.parcel.Parcelable
 import dev.sierov.core.parcel.Parcelize
 import dev.sierov.domain.model.category.Category
@@ -11,6 +12,7 @@ import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
 @Parcelize
+@Immutable
 @Serializable
 data class Product(
     @SerialName("id") val id: String,
@@ -26,6 +28,7 @@ data class Product(
 ) : Parcelable
 
 @Parcelize
+@Immutable
 @Serializable
 data class ProductPrices(
     @SerialName("price") val price: Price,
@@ -33,6 +36,7 @@ data class ProductPrices(
 ) : Parcelable
 
 @Parcelize
+@Immutable
 @Serializable
 data class UnitPrice(
     @SerialName("unit") val unit: ItemUnit,
@@ -41,6 +45,7 @@ data class UnitPrice(
 
 @JvmInline
 @Parcelize
+@Immutable
 @Serializable
 value class ProductType(val name: String) : Parcelable {
     companion object {

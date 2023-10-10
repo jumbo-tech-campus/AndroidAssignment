@@ -1,6 +1,7 @@
 package dev.rsierov.feature.start
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -24,7 +25,7 @@ class StartUiFactory : Ui.Factory {
 
 @Composable
 fun Start(state: StartUiState, modifier: Modifier = Modifier) {
-    Box(modifier) {
+    Box(modifier.fillMaxSize()) {
         val eventSink = state.eventSink
         Button(
             content = { Text(text = "Start") },

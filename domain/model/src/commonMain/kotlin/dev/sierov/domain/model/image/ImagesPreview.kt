@@ -1,11 +1,13 @@
 package dev.sierov.domain.model.image
 
+import androidx.compose.runtime.Immutable
 import dev.sierov.core.parcel.Parcelable
 import dev.sierov.core.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Parcelize
+@Immutable
 @Serializable
 data class ImagesPreview(
     @SerialName("primaryView") private val primaryView: List<Image>,
@@ -16,6 +18,7 @@ data class ImagesPreview(
 }
 
 @Parcelize
+@Immutable
 @Serializable
 data class Image(
     @SerialName("url") val url: String,

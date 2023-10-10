@@ -22,8 +22,10 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 implementation(compose.material)
+                implementation(compose.materialIconsExtended)
                 implementation(compose.animation)
                 implementation(libs.kotlininject.runtime)
+                implementation(libs.imageloader)
             }
         }
     }
