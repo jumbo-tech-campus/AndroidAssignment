@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,9 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -97,7 +93,9 @@ fun Products(
             items(state.products) { product ->
                 ProductItem(
                     product = product,
+                    quantity = state.shoppingContent[product.id],
                     onAddProduct = onAddProduct,
+                    onRemoveProduct = onRemoveProduct,
                     onClick = { /* no-op */ },
                     modifier = Modifier
                 )
@@ -114,7 +112,9 @@ fun Products(
 @Composable
 fun ProductItem(
     product: Product,
+    quantity: Int,
     onAddProduct: (Product) -> Unit,
+    onRemoveProduct: (Product) -> Unit,
     onClick: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -157,11 +157,10 @@ fun ProductItem(
                     )
                 }
             }
-            var quantity by remember { mutableStateOf(0) }
             QuantityButton(
                 quantity = quantity,
-                onPlus = { quantity++ },
-                onMinus = { quantity-- },
+                onPlus = { onAddProduct(product) },
+                onMinus = { onRemoveProduct(product) },
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
         }

@@ -41,6 +41,8 @@ include(
     ":screen",
     ":api:public",
     ":api:jumbo-impl",
+    ":cart:public",
+    ":cart:datastore-impl",
     ":domain:model",
     ":domain:usecase",
     ":feature:root",

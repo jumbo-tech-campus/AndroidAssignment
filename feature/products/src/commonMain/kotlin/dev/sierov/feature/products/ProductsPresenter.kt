@@ -17,6 +17,8 @@ import com.slack.circuit.runtime.screen.Screen
 import dev.sierov.api.cause
 import dev.sierov.api.result.ApiResult.Failure
 import dev.sierov.api.result.ApiResult.Success
+import dev.sierov.cart.Cart
+import dev.sierov.cart.ShoppingContent
 import dev.sierov.domain.model.product.Product
 import dev.sierov.domain.usecase.GetProductsUsecase
 import dev.sierov.screen.ProductsScreen
@@ -42,12 +44,14 @@ class ProductsPresenterFactory(
 class ProductsPresenter(
     @Assisted private val navigator: Navigator,
     private val getProductsUsecase: () -> GetProductsUsecase,
+    private val shoppingCart: Cart,
 ) : Presenter<ProductsUiState> {
 
     @Composable
     override fun present(): ProductsUiState {
         val coroutineScope = rememberCoroutineScope()
         var products by rememberSaveable { mutableStateOf<List<Product>>(emptyList()) }
+        val shoppingContent by shoppingCart.content.collectAsState(ShoppingContent.Empty)
 
         val loadProducts = rememberRetained { getProductsUsecase() }
         val loadingProducts by loadProducts.inProgress.collectAsState(initial = false)
@@ -71,13 +75,18 @@ class ProductsPresenter(
                     }
                 }
 
-                is ProductsUiEvent.AddProduct -> TODO()
-                is ProductsUiEvent.RemoveProduct -> TODO()
+                is ProductsUiEvent.AddProduct -> coroutineScope.launch {
+                    shoppingCart.putProduct(event.product.id)
+                }
+                is ProductsUiEvent.RemoveProduct -> coroutineScope.launch {
+                    shoppingCart.removeProduct(event.product.id)
+                }
             }
         }
 
         return ProductsUiState(
             products = products,
+            shoppingContent = shoppingContent,
             loading = loadingProducts,
             refreshing = refreshingProducts,
             eventSink = ::eventSink,

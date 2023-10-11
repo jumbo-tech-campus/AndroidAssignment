@@ -4,11 +4,13 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
+import dev.sierov.cart.ShoppingContent
 import dev.sierov.domain.model.product.Product
 
 @Stable
 data class ProductsUiState(
     val products: List<Product>,
+    val shoppingContent: ShoppingContent,
     val loading: Boolean,
     val refreshing: Boolean,
     val eventSink: (ProductsUiEvent) -> Unit,

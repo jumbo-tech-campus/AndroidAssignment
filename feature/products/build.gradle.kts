@@ -15,6 +15,7 @@ kotlin {
                 api(libs.circuit.foundation)
                 implementation(projects.core)
                 implementation(projects.screen)
+                implementation(projects.cart.public)
                 implementation(projects.domain.model)
                 implementation(projects.domain.usecase)
                 implementation(libs.circuit.runtime)
