@@ -91,6 +91,17 @@ fun Products(
         onRefresh = onRefreshProducts,
     )
     Box(modifier.pullRefresh(pullRefreshState)) {
+        state.contentMessage?.let { message ->
+            if (state.products.isEmpty()) {
+                Text(
+                    text = message,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .align(Alignment.Center)
+                )
+            }
+        }
         LazyColumn(Modifier.matchParentSize()) {
             items(state.products) { product ->
                 ProductItem(
@@ -100,17 +111,6 @@ fun Products(
                     onRemoveProduct = onRemoveProduct,
                     onClick = { /* go to product details */ },
                     modifier = Modifier
-                )
-            }
-        }
-        state.contentMessage?.let { error ->
-            if (state.products.isEmpty()) {
-                Text(
-                    text = error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .padding(24.dp)
-                        .align(Alignment.Center)
                 )
             }
         }

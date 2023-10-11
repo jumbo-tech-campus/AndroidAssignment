@@ -20,6 +20,6 @@ data class ProductsUiState(
 @Immutable
 sealed class ProductsUiEvent : CircuitUiEvent {
     data object RefreshProducts : ProductsUiEvent()
-    class AddProduct(val product: Product) : ProductsUiEvent()
-    class RemoveProduct(val product: Product) : ProductsUiEvent()
+    data class AddProduct(val product: Product) : ProductsUiEvent()
+    data class RemoveProduct(val product: Product) : ProductsUiEvent()
 }

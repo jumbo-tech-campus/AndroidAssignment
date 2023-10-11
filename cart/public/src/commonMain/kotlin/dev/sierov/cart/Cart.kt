@@ -9,14 +9,15 @@ interface ReadOnlyCart {
 interface Cart : ReadOnlyCart {
     suspend fun putProduct(productId: String, quantity: Int = 1)
     suspend fun removeProduct(productId: String, quantity: Int = 1)
-    suspend fun clearALl()
+    suspend fun clearAll()
 }
 
 data class ShoppingContent(
     private val productToQuantity: Map<String, Int>,
 ) : Map<String, Int> by productToQuantity {
-    override operator fun get(key: String): Int = productToQuantity[key] ?: 0
-    override fun containsKey(key: String): Boolean = get(key) > 0
+    override operator fun get(key: String): Int = getQuantity(productId = key)
+    override fun containsKey(key: String): Boolean = getQuantity(key) > 0
+    fun getQuantity(productId: String) = productToQuantity[productId] ?: 0
 
     companion object {
         val Empty = ShoppingContent(emptyMap())

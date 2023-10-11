@@ -41,11 +41,12 @@ class LocalDatastoreCart(directory: CartDatastoreDirectory) : Cart {
                 "There's no $quantity product(s) to remove from the cart. " +
                         "Product(s) with id $productId in cart: $existingQuantity"
             }
-            it += key to existingQuantity - quantity
+            if (existingQuantity == 1) it.remove(key)
+            else it += key to existingQuantity - quantity
         }
     }
 
-    override suspend fun clearALl() {
+    override suspend fun clearAll() {
         datastore.edit { it.clear() }
     }
 

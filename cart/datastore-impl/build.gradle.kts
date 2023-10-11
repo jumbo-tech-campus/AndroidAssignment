@@ -22,5 +22,15 @@ kotlin {
                 implementation(libs.androidx.datastore.android)
             }
         }
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.junit)
+                implementation(libs.androidx.test.core)
+                implementation(libs.androidx.test.junit)
+                implementation(libs.kotlin.coroutines.test)
+                implementation(libs.turbine)
+            }
+        }
     }
 }
