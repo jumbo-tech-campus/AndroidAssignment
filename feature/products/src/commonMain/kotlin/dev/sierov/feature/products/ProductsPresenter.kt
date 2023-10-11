@@ -3,6 +3,7 @@ package dev.sierov.feature.products
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -21,6 +22,7 @@ import dev.sierov.cart.Cart
 import dev.sierov.cart.ShoppingContent
 import dev.sierov.domain.model.product.Product
 import dev.sierov.domain.usecase.GetProductsUsecase
+import dev.sierov.screen.CartScreen
 import dev.sierov.screen.ProductsScreen
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
@@ -28,14 +30,15 @@ import me.tatarka.inject.annotations.Inject
 
 @Inject
 class ProductsPresenterFactory(
-    private val presenterFactory: (Navigator) -> ProductsPresenter,
+    private val presenterFactory: (Navigator, ProductsFilter) -> ProductsPresenter,
 ) : Presenter.Factory {
     override fun create(
         screen: Screen,
         navigator: Navigator,
         context: CircuitContext,
     ): Presenter<*>? = when (screen) {
-        is ProductsScreen -> presenterFactory(navigator)
+        is ProductsScreen -> presenterFactory(navigator, ProductsFilter.All)
+        is CartScreen -> presenterFactory(navigator, ProductsFilter.OnlyInCart)
         else -> null
     }
 }
@@ -43,6 +46,7 @@ class ProductsPresenterFactory(
 @Inject
 class ProductsPresenter(
     @Assisted private val navigator: Navigator,
+    @Assisted private val productsFilter: ProductsFilter,
     private val getProductsUsecase: () -> GetProductsUsecase,
     private val shoppingCart: Cart,
 ) : Presenter<ProductsUiState> {
@@ -50,8 +54,9 @@ class ProductsPresenter(
     @Composable
     override fun present(): ProductsUiState {
         val coroutineScope = rememberCoroutineScope()
+        val cart by shoppingCart.content.collectAsState(ShoppingContent.Empty)
         var products by rememberSaveable { mutableStateOf<List<Product>>(emptyList()) }
-        val shoppingContent by shoppingCart.content.collectAsState(ShoppingContent.Empty)
+        val filtered by rememberRetained { derivedStateOf { productsFilter(products, cart) } }
 
         val loadProducts = rememberRetained { getProductsUsecase() }
         val loadingProducts by loadProducts.inProgress.collectAsState(initial = false)
@@ -78,6 +83,7 @@ class ProductsPresenter(
                 is ProductsUiEvent.AddProduct -> coroutineScope.launch {
                     shoppingCart.putProduct(event.product.id)
                 }
+
                 is ProductsUiEvent.RemoveProduct -> coroutineScope.launch {
                     shoppingCart.removeProduct(event.product.id)
                 }
@@ -85,12 +91,24 @@ class ProductsPresenter(
         }
 
         return ProductsUiState(
-            products = products,
-            shoppingContent = shoppingContent,
+            products = filtered,
+            shoppingContent = cart,
             loading = loadingProducts,
             refreshing = refreshingProducts,
             eventSink = ::eventSink,
         )
+    }
+}
+
+sealed class ProductsFilter : (List<Product>, ShoppingContent) -> List<Product> {
+
+    data object OnlyInCart : ProductsFilter() {
+        override fun invoke(products: List<Product>, cart: ShoppingContent) =
+            products.filter { it.id in cart }
+    }
+
+    data object All : ProductsFilter() {
+        override fun invoke(products: List<Product>, p2: ShoppingContent) = products
     }
 }
 

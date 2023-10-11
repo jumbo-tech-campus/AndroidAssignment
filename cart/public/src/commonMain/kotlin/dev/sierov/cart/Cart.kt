@@ -16,6 +16,7 @@ data class ShoppingContent(
     private val productToQuantity: Map<String, Int>,
 ) : Map<String, Int> by productToQuantity {
     override operator fun get(key: String): Int = productToQuantity[key] ?: 0
+    override fun containsKey(key: String): Boolean = get(key) > 0
 
     companion object {
         val Empty = ShoppingContent(emptyMap())

@@ -33,7 +33,7 @@ class StartPresenter(
 
         fun eventSink(event: StartUiEvent) {
             when (event) {
-                is StartUiEvent.Start -> navigator.goTo(ProductsScreen)
+                is StartUiEvent.Start -> navigator.resetRoot(ProductsScreen)
             }
         }
 
