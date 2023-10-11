@@ -13,6 +13,7 @@ data class ProductsUiState(
     val shoppingContent: ShoppingContent,
     val loading: Boolean,
     val refreshing: Boolean,
+    val contentMessage: String?,
     val eventSink: (ProductsUiEvent) -> Unit,
 ) : CircuitUiState
 

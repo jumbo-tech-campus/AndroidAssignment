@@ -98,8 +98,19 @@ fun Products(
                     quantity = state.shoppingContent[product.id],
                     onAddProduct = onAddProduct,
                     onRemoveProduct = onRemoveProduct,
-                    onClick = { /* no-op */ },
+                    onClick = { /* go to product details */ },
                     modifier = Modifier
+                )
+            }
+        }
+        state.contentMessage?.let { error ->
+            if (state.products.isEmpty()) {
+                Text(
+                    text = error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .align(Alignment.Center)
                 )
             }
         }

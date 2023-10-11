@@ -57,6 +57,7 @@ class ProductsPresenter(
         val cart by shoppingCart.content.collectAsState(ShoppingContent.Empty)
         var products by rememberSaveable { mutableStateOf<List<Product>>(emptyList()) }
         val filtered by rememberRetained { derivedStateOf { productsFilter(products, cart) } }
+        var contentMessage by rememberRetained { mutableStateOf<String?>(null) }
 
         val loadProducts = rememberRetained { getProductsUsecase() }
         val loadingProducts by loadProducts.inProgress.collectAsState(initial = false)
@@ -67,7 +68,8 @@ class ProductsPresenter(
         LaunchedEffect(Unit) {
             when (val res = loadProducts(GetProductsUsecase.Params(forceFresh = false))) {
                 is Success -> products = res.response
-                is Failure -> Log.e("Failed to load products", res.cause)
+                is Failure.NetworkFailure -> contentMessage = "Please, check your connectivity."
+                else -> contentMessage = "No products. Something went wrong."
             }
         }
 
@@ -94,6 +96,7 @@ class ProductsPresenter(
             products = filtered,
             shoppingContent = cart,
             loading = loadingProducts,
+            contentMessage = contentMessage,
             refreshing = refreshingProducts,
             eventSink = ::eventSink,
         )
