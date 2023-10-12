@@ -28,7 +28,7 @@ fun Start(state: StartUiState, modifier: Modifier = Modifier) {
     Box(modifier.fillMaxSize()) {
         val eventSink = state.eventSink
         Button(
-            content = { Text(text = "Start Shopping") },
+            content = { Text(text = state.action) },
             onClick = { eventSink(StartUiEvent.Start) },
             shape = RoundedCornerShape(percent = 50),
             modifier = Modifier.align(Alignment.Center)

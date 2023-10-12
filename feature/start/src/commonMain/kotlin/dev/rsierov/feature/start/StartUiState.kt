@@ -7,6 +7,7 @@ import com.slack.circuit.runtime.CircuitUiState
 
 @Stable
 data class StartUiState(
+    val action: String,
     val eventSink: (StartUiEvent) -> Unit,
 ) : CircuitUiState
 

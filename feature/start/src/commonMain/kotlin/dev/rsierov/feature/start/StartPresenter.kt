@@ -1,12 +1,17 @@
 package dev.rsierov.feature.start
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import dev.sierov.cart.ReadOnlyCart
+import dev.sierov.cart.ShoppingContent
 import dev.sierov.screen.ProductsScreen
 import dev.sierov.screen.StartScreen
+import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
 @Inject
@@ -25,11 +30,13 @@ class StartPresenterFactory(
 
 @Inject
 class StartPresenter(
-    private val navigator: Navigator,
+    @Assisted private val navigator: Navigator,
+    private val cart: ReadOnlyCart,
 ) : Presenter<StartUiState> {
 
     @Composable
     override fun present(): StartUiState {
+        val shoppingContent by cart.content.collectAsState(ShoppingContent.Empty)
 
         fun eventSink(event: StartUiEvent) {
             when (event) {
@@ -37,6 +44,9 @@ class StartPresenter(
             }
         }
 
-        return StartUiState(eventSink = ::eventSink)
+        return StartUiState(
+            action = if (shoppingContent.isEmpty()) "Start Shopping" else "Continue Shopping",
+            eventSink = ::eventSink,
+        )
     }
 }

@@ -14,6 +14,7 @@ kotlin {
             dependencies {
                 implementation(projects.core)
                 implementation(projects.screen)
+                implementation(projects.cart.public)
                 implementation(libs.circuit.foundation)
                 implementation(compose.foundation)
                 implementation(compose.material3)

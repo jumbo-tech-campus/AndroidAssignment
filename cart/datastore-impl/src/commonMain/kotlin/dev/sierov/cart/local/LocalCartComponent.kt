@@ -13,5 +13,5 @@ interface LocalCartComponent : PlatformLocalCartWiring {
 
     @Provides
     @ApplicationScoped
-    fun localReadOnlyCart(cart: LocalDatastoreCart): ReadOnlyCart = cart
+    fun localReadOnlyCart(cart: Cart): ReadOnlyCart = cart
 }

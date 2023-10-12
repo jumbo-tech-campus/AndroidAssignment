@@ -7,6 +7,7 @@ import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
 import com.slack.circuit.runtime.Navigator
+import dev.sierov.cart.ReadOnlyCart
 import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
@@ -22,11 +23,13 @@ fun AppContent(
     @Assisted backstack: SaveableBackStack,
     @Assisted navigator: Navigator,
     circuit: Circuit,
+    cart: ReadOnlyCart,
     @Assisted modifier: Modifier = Modifier,
 ) {
     CircuitCompositionLocals(circuit) {
         MaterialTheme {
             Root(
+                cart = cart,
                 backstack = backstack,
                 navigator = navigator,
                 modifier = modifier
