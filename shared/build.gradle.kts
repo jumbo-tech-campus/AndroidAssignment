@@ -1,7 +1,6 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
+import dev.sierov.gradle.addKspDependencyForAllTargets
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import dev.sierov.gradle.addKspDependencyForAllTargets
 
 plugins {
     id("dev.sierov.android.library")
@@ -14,6 +13,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.screen)
                 api(projects.feature.root)
                 api(projects.feature.start)
                 api(projects.feature.products)
@@ -24,20 +24,8 @@ kotlin {
 
                 implementation(projects.core)
                 implementation(libs.kotlininject.runtime)
-
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.material)
-                @OptIn(ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                api(libs.androidx.activity.compose)
-                api(libs.androidx.activity.activity)
-                api(libs.androidx.appcompat)
-                api(libs.androidx.core)
             }
         }
         targets.withType<KotlinNativeTarget>().configureEach {
