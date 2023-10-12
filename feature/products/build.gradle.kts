@@ -29,5 +29,15 @@ kotlin {
                 implementation(libs.imageloader)
             }
         }
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(projects.cart.datastoreImpl)
+                implementation(libs.kotlin.coroutines.test)
+                implementation(libs.circuit.testing)
+                implementation(libs.junit)
+                implementation(libs.turbine)
+            }
+        }
     }
 }

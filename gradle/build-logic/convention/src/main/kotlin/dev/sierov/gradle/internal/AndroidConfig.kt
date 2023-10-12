@@ -19,6 +19,12 @@ internal fun Project.configureAndroid() {
             // https://developer.android.com/studio/write/java8-support
             isCoreLibraryDesugaringEnabled = true
         }
+
+        testOptions {
+            unitTests {
+                isReturnDefaultValues = true
+            }
+        }
     }
 
     dependencies {

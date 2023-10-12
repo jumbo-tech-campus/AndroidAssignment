@@ -45,7 +45,6 @@ class ProductsPresenterFactory(
 
 @Inject
 class ProductsPresenter(
-    @Assisted private val navigator: Navigator,
     @Assisted private val productsFilter: ProductsFilter,
     private val getProductsUsecase: () -> GetProductsUsecase,
     private val shoppingCart: Cart,
