@@ -12,6 +12,7 @@ import platform.UIKit.UIViewController
 
 typealias AppUiViewController = () -> UIViewController
 
+@Suppress("FunctionName")
 @Inject
 fun AppUiViewController(
     appContent: AppContent,

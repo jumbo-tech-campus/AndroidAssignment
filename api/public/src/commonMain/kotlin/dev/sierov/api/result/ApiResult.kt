@@ -1,7 +1,11 @@
+@file:Suppress("RedundantVisibilityModifier", "unused")
+
 package dev.sierov.api.result
 
 import dev.sierov.api.ApiCallException
 import dev.sierov.api.cause
+import dev.sierov.api.result.ApiResult.Failure
+import dev.sierov.api.result.ApiResult.Success
 
 /**
  * Represents a result from a traditional HTTP API. [ApiResult] has two sealed subtypes: [Success]
@@ -94,20 +98,20 @@ public sealed class ApiResult<out T, out E> {
         private val HTTP_SUCCESS_RANGE = OK..299
         private val HTTP_FAILURE_RANGE = 400..599
 
-        /** Returns a new [HttpFailure] with given [code] and optional [error]. */
+        /** Returns a new [Failure.HttpFailure] with given [code] and optional [error]. */
         public fun <E> httpFailure(code: Int, error: E? = null): Failure.HttpFailure<E> {
             checkHttpFailureCode(code)
             return Failure.HttpFailure(code, error)
         }
 
-        /** Returns a new [ApiFailure] with given [error]. */
+        /** Returns a new [Failure.ApiFailure] with given [error]. */
         public fun apiFailure(error: Throwable): Failure.ApiFailure = Failure.ApiFailure(error)
 
-        /** Returns a new [NetworkFailure] with given [error]. */
+        /** Returns a new [Failure.NetworkFailure] with given [error]. */
         public fun networkFailure(error: IoException): Failure.NetworkFailure =
             Failure.NetworkFailure(error)
 
-        /** Returns a new [UnknownFailure] with given [error]. */
+        /** Returns a new [Failure.UnknownFailure] with given [error]. */
         public fun unknownFailure(error: Throwable): Failure.UnknownFailure =
             Failure.UnknownFailure(error)
 
@@ -127,11 +131,11 @@ typealias IoException = Exception
 
 @Throws(ApiCallException::class)
 fun <T> ApiResult<T, *>.getOrThrow(): T = when (this) {
-    is ApiResult.Success -> response
-    is ApiResult.Failure -> throw cause
+    is Success -> response
+    is Failure -> throw cause
 }
 
 inline fun <T, R : Any, E> ApiResult<T, E>.map(mapper: (T) -> R): ApiResult<R, E> = when (this) {
-    is ApiResult.Success -> ApiResult.Success(mapper(response))
-    is ApiResult.Failure -> this
+    is Success -> Success(mapper(response))
+    is Failure -> this
 }

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package dev.sierov.api.jumbo.internal
 
 import dev.sierov.api.result.ApiResult

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package dev.sierov.api
 
 import dev.sierov.api.result.ApiResult

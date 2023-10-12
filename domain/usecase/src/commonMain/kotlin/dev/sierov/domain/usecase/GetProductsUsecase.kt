@@ -2,7 +2,6 @@ package dev.sierov.domain.usecase
 
 import dev.sierov.api.ProductApi
 import dev.sierov.api.result.ApiResult
-import dev.sierov.api.result.getOrThrow
 import dev.sierov.domain.model.product.Product
 import dev.sierov.domain.usecase.internal.StatefulUsecase
 import kotlinx.coroutines.delay

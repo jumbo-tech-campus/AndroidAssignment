@@ -47,9 +47,9 @@ internal class ForceConnectionlessCache(private val context: Context) : Intercep
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder: Request.Builder = chain.request().newBuilder()
         if (!context.isNetworkConnected()) {
-            builder.cacheControl(CacheControl.FORCE_CACHE);
+            builder.cacheControl(CacheControl.FORCE_CACHE)
         }
-        return chain.proceed(builder.build());
+        return chain.proceed(builder.build())
     }
 }
 

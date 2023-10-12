@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
+@Suppress("unused")
 class KotlinMultiplatformConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         with(pluginManager) {
@@ -87,9 +88,11 @@ class KotlinMultiplatformConventionPlugin : Plugin<Project> {
     }
 }
 
+@Suppress("unused")
 fun Project.addKspDependencyForAllTargets(dependencyNotation: Any) =
     addKspDependencyForAllTargets("", dependencyNotation)
 
+@Suppress("unused")
 fun Project.addKspTestDependencyForAllTargets(dependencyNotation: Any) =
     addKspDependencyForAllTargets("Test", dependencyNotation)
 
