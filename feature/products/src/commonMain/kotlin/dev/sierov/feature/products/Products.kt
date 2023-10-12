@@ -37,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -133,6 +135,7 @@ fun ProductItem(
 ) {
     Card(modifier = modifier
         .padding(4.dp)
+        .semantics { contentDescription = product.title }
         .clickable { onClick(product) }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -209,7 +212,9 @@ private fun QuantityButton(
                     color = contentColor,
                     fontSize = 28.sp,
                     textAlign = TextAlign.Center,
-                    modifier = commonModifier.clickable { onPlus() }
+                    modifier = commonModifier
+                        .semantics { contentDescription = "+1" }
+                        .clickable { onPlus() }
                 )
                 if (quantity > 0) {
                     Text(
@@ -217,13 +222,17 @@ private fun QuantityButton(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Black,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.defaultMinSize(minWidth = 72.dp)
+                        modifier = Modifier
+                            .semantics { contentDescription = "quantity" }
+                            .defaultMinSize(minWidth = 72.dp)
                     )
                     Text(
                         text = "–",
                         fontSize = 28.sp,
                         textAlign = TextAlign.Center,
-                        modifier = commonModifier.clickable { onMinus() }
+                        modifier = commonModifier
+                            .semantics { contentDescription = "-1" }
+                            .clickable { onMinus() }
                     )
                 }
             }

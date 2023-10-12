@@ -25,6 +25,10 @@ internal fun Project.configureAndroid() {
                 isReturnDefaultValues = true
             }
         }
+
+        sourceSets {
+            getByName("androidTest").resources.srcDirs("src/androidTest/res")
+        }
     }
 
     dependencies {
@@ -33,4 +37,4 @@ internal fun Project.configureAndroid() {
     }
 }
 
-internal fun Project.android(action: BaseExtension.() -> Unit) = extensions.configure<BaseExtension>(action)
+internal fun Project.android(action: BaseExtension.() -> Unit) = extensions.configure(action)

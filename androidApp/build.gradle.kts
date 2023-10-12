@@ -19,4 +19,9 @@ dependencies {
     implementation(projects.shared)
     implementation(projects.screen)
     implementation(libs.circuit.foundation)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.uiautomator)
+    androidTestImplementation(libs.androidx.compose.test)
+    androidTestImplementation(libs.okhttp.mockwebserver)
+    debugImplementation(libs.androidx.compose.testManifest)
 }

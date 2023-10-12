@@ -30,15 +30,15 @@ import me.tatarka.inject.annotations.Inject
 
 @Inject
 class ProductsPresenterFactory(
-    private val presenterFactory: (Navigator, ProductsFilter) -> ProductsPresenter,
+    private val presenterFactory: (ProductsFilter) -> ProductsPresenter,
 ) : Presenter.Factory {
     override fun create(
         screen: Screen,
         navigator: Navigator,
         context: CircuitContext,
     ): Presenter<*>? = when (screen) {
-        is ProductsScreen -> presenterFactory(navigator, ProductsFilter.All)
-        is CartScreen -> presenterFactory(navigator, ProductsFilter.OnlyInCart)
+        is ProductsScreen -> presenterFactory(ProductsFilter.All)
+        is CartScreen -> presenterFactory(ProductsFilter.OnlyInCart)
         else -> null
     }
 }
