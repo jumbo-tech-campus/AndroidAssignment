@@ -48,5 +48,4 @@ include(
     ":feature:root",
     ":feature:start",
     ":feature:products",
-    ":feature:cart",
 )
