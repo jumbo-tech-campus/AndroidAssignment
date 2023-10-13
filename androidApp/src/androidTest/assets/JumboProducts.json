@@ -1,0 +1,426 @@
+{
+  "products": [
+    {
+      "id": "153500PAK",
+      "title": "Snickers chocolade repen 5 stuks",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 236
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 944
+          }
+        }
+      },
+      "available": true,
+      "productType": "PartOfRetailSet",
+      "nixProduct": false,
+      "quantity": "5 x 50 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210149_153500PAK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210149_153500PAK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210149_153500PAK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "91817STK",
+      "title": "Snickers 50gr",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 88
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 1760
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "50 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/250620212340_91817STK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250620212340_91817STK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250620212340_91817STK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "153549ZK",
+      "title": "M&M'S Choco chocolade 440g",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 399
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 907
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "440 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210926_153549ZK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210926_153549ZK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210926_153549ZK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "153501PAK",
+      "title": "Mars chocolade repen 5 stuks",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 218
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 969
+          }
+        }
+      },
+      "available": true,
+      "productType": "PartOfRetailSet",
+      "nixProduct": false,
+      "quantity": "5 x 45 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210150_153501PAK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210150_153501PAK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210150_153501PAK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "72840PAK",
+      "title": "Twix chocolade repen 5x2 stuks",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 223
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 892
+          }
+        }
+      },
+      "available": false,
+      "productType": "PartOfRetailSet",
+      "nixProduct": false,
+      "quantity": "10 x 25 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/260320210813_72840PAK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/260320210813_72840PAK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/260320210813_72840PAK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "unavailabilityReason": "UNAVAILABLE",
+      "reason": "ON_HOLD",
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "410082ZK",
+      "title": "Mars mini's chocolade uitdeelzak 19 stuks",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 239
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 653
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "366 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210557_410082ZK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210557_410082ZK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/250320210557_410082ZK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "91880STK",
+      "title": "Bounty Single Reep",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 88
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 1544
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "2 x 28,5 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/130920211545_91880STK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/130920211545_91880STK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/130920211545_91880STK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "169145STK",
+      "title": "E+G Choco Lolly 10 x 15g",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 119
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 793
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "10 x 15 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/070520190859_169145STK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/070520190859_169145STK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/070520190859_169145STK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "91818STK",
+      "title": "Twix - 2 x 25g",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 87
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 1740
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "2 x 25 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/070920212313_91818STK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/070920212313_91818STK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/070920212313_91818STK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    },
+    {
+      "id": "169303ZK",
+      "title": "M&M'S Pinda, choco en crispy chocolade mix 255g",
+      "prices": {
+        "price": {
+          "currency": "EUR",
+          "amount": 280
+        },
+        "unitPrice": {
+          "unit": "kg",
+          "price": {
+            "currency": "EUR",
+            "amount": 1098
+          }
+        }
+      },
+      "available": true,
+      "productType": "Product",
+      "nixProduct": false,
+      "quantity": "255 g",
+      "imageInfo": {
+        "primaryView": [
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210934_169303ZK-1_180x180.png",
+            "width": 180,
+            "height": 180
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210934_169303ZK-1_720x720.png",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "url": "https://static-images.jumbo.com/product_images/050920210934_169303ZK-1_360x360.png",
+            "width": 360,
+            "height": 360
+          }
+        ]
+      },
+      "topLevelCategory": "Koek, gebak, snoep, chips",
+      "topLevelCategoryId": "SG9"
+    }
+  ]
+}
